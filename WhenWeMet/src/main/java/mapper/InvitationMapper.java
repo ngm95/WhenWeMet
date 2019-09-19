@@ -1,9 +1,10 @@
 package mapper;
 
-import java.util.List;
+import org.apache.ibatis.annotations.Param;
+
+import dto.InvitationDTO;
 
 public interface InvitationMapper {
-	public void request();
-	public void accept();
-	public void delete();
+	public void insert(InvitationDTO dto);
+	public void delete(@Param("sender") String sender, @Param("receiver") String receiver);
 }
