@@ -31,6 +31,6 @@
 	</bean>
 	
 	<!-- mybatis-spring scan -->
-	<mybatis-spring:scan base-package="repository"/>
+	<mybatis-spring:scan base-package="mapper"/>
 		
 </beans>
