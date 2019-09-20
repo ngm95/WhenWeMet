@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD MAPPER 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.spring.project.mappers.sql.UserMapper">
+	 <insert id="create">
+        INSERT INTO user (
+        userid
+        , password
+        , uname
+        , email
+        ) VALUES (
+        #{userid}
+        , #{password}
+        , #{uname}
+        , #{email}
+        )
+    </insert>
+    
+    <insert id="register">
+        INSERT INTO user (
+        userid
+        , password
+        , uname
+        , email
+        ) VALUES (
+        #{id}
+        , #{password}
+        , #{name}
+        , #{email}
+        )
+    </insert>
+
+	<select id="readById" resultType="com.spring.project.dto.UserDTO">
+		SELECT
+              userid,
+              password,
+              uname,
+              role
+          FROM
+              USER
+          WHERE
+              userid = #{userid} 
+	</select>
+	
+	<select id="readByEmail" resultType="com.spring.project.dto.UserDTO">
+          SELECT
+              EMAIL,
+              UNAME
+          FROM
+              USER
+          WHERE
+              EMAIL = #{email}      
+    </select>
+	
+	<update id="update">
+		UPDATE user
+		SET
+			password = #{password},
+			uname = #{uname},
+			email = #{email},
+			role = #{role}
+		WHERE
+			userid = #{userid}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM user
+		WHERE userid = #{userid}
+	</delete>
+	
+	<select id="listAll" resultType="com.spring.project.dto.UserDTO">
+		<![CDATA[
+		SELECT 
+			userid,
+			password,
+			uname,
+			email,
+			role
+		FROM
+			user
+		ORDER BY userid DESC
+		]]>
+	</select>
+</mapper>

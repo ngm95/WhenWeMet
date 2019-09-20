@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD MAPPER 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.spring.project.mappers.sql.PartyMapper">
+	<insert id="create">
+        INSERT INTO meeting (
+        mid
+        , userid
+        ) VALUES (
+        #{mid}
+        , #{userid}
+        )
+    </insert>
+
+	<select id="read" resultType="com.spring.project.dto.PartyDTO">
+		SELECT 
+			mid,
+			userid
+		FROM
+			party
+		WHERE 
+			mid = #{mid} AND userid = #{userid}
+	</select>
+	
+	<update id="update">
+		
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM party
+		WHERE mid = #{mid} AND userid = #{userid}
+	</delete>
+	
+	<select id="listAll" resultType="com.spring.project.dto.PartyDTO">
+		<![CDATA[
+		SELECT 
+			mid,
+			userid
+		FROM
+			party
+		WHERE mid > 0
+		ORDER BY mid DESC
+		]]>
+	</select>
+	
+	
+</mapper>
