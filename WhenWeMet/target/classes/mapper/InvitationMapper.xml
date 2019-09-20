@@ -1,13 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-	"http://mybatis.org.dtd/mybatis-3-mapper.dtd">
-<mapper namespace="mapper.InvitationMapper">
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.spring.project.dao.InvitationDAO">
 	<insert id="insert">
 		insert into invitation values (#{sender}, #{receiver}, #{mid})
 	</insert>
 	<delete id="delete">
 		delete from invitation
-		where sender = #{sender} and receiver = #{receiver}
+		where sender = #{sender} and receiver = #{receiver} and  mid = #{mid}
 	</delete>
+	<select id="getInvitationList" resultType="com.spring.project.dto.InvitationDTO">
+		<![CDATA[
+			select *
+			from invitation
+			where receiver not in(select i1.receiver
+			from invitation i1 inner join invitation i2 
+			on i1.sender = i2.receiver and i1.receiver = i2.sender) and receiver = #{userid};
+		]]>
+	</select>
 </mapper>

@@ -9,4 +9,5 @@ public interface ScheduleDAO{
 	public void delete(long sid);
 	public void update(ScheduleDTO dto);
 	public List<ScheduleDTO> select(String userid);
+	public List<ScheduleDTO> selectByManyUser(List<String> userList);
 }
