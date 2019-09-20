@@ -15,27 +15,28 @@
 	
 	<!-- component scan -->
 	
-	<context:component-scan base-package="dto"></context:component-scan>
-	<context:component-scan base-package="service"></context:component-scan>
+	<context:component-scan base-package="com.spring.project.dto"></context:component-scan>
+	<context:component-scan base-package="com.spring.project.service"></context:component-scan>
+	<mybatis-spring:scan base-package="com.spring.project.dao"/>
 	
 	<!-- mysql datasource -->
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
-		<property name="url" value="jdbc:log4jdbc:mysql://127.0.0.1:3306/whenwemet?characterEncoding=utf8&amp;useUnicode=true&amp;mysqlEncoding=utf8&amp;useSSL=false&amp;serverTimezone=Asia/Seoul"></property>
-		<property name="username" value="admin_whenwemet"></property>
+        <property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"/>
+        <property name="url" value="jdbc:log4jdbc:mysql://127.0.0.1:3306/whenwemet?characterEncoding=utf8&amp;useUnicode=true&amp;mysqlEncoding=utf8&amp;useSSL=false&amp;serverTimezone=Asia/Seoul"/>
+		<property name="username" value="whenwemet_admin"></property>
 		<property name="password" value="tiger"></property>
 	</bean>
 	
-	<!-- mybatis sqlsessionfactorybean -->
+	<!--SqlSessionFactory 설정 : dataSource를 참조, mybatis-config.xml 경로설정-->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
-        <property name="mapperLocations" value="classpath:mappers/**/*Mapper.xml"/>
+        <property name="configLocation" value="classpath:/mybatis-config.xml"/>
+        <property name="mapperLocations" value="classpath:mapper/**/*Mapper.xml"/>
     </bean>
 
     <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
         <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"/>
     </bean>
-	
-	<!-- mybatis-spring scan -->
-	<context:component-scan base-package="com.spring.project"/>
+
+    <context:component-scan base-package="com.spring.project"/>
 </beans>

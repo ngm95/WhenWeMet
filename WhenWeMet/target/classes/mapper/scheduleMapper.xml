@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
-	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-	"http://mybatis.org.dtd/mybatis-3-mapper.dtd">
-<mapper namespace="mapper.ScheduleMapper">
+	PUBLIC "-//mybatis.org//DTD MAPPER 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.project.dao.ScheduleDAO">
 <!-- <![CDATA[ ]]> -->
-	<select id="select" resultType="dto.ScheduleDTO">
+	<select id="select" resultType="com.spring.project.dto.ScheduleDTO">
 		select * from schedule where userid = #{userid}
 	</select>
 	<insert id="insert">
@@ -23,4 +23,11 @@
 		end_time = #{end_time}
 		where sid = #{sid}
 	</update>
+	<select id="selectByManyUser" resultType="com.spring.project.dto.ScheduleDTO">
+		select * from schedule
+		where userid in
+		<foreach collection="list" index="index" item="userid" open="(" separator="," close=")">
+        		#{userid}
+		</foreach>
+	</select>
 </mapper>

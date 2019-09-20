@@ -7,8 +7,12 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
+    <!--스프링 MVC관련 설정만을 분리하기 위한 파일-->
+
+    <!--애너테이션 자동 인식-->
     <annotation-driven/>
 
+    <!--정적 자원 : js, css, 이미지파일 등등-->
     <resources mapping="/resources/**" location="/resources/" />
     <resources mapping="/bower_components/**" location="/resources/bower_components/"/>
     <resources mapping="/plugins/**" location="/resources/plugins/"/>
@@ -20,6 +24,7 @@
         <beans:property name="suffix" value=".jsp" />
     </beans:bean>
 
+    <!--base-package 속성 값에 해당하는 패키지 내부의 클래스들을 모두 조사-->
     <context:component-scan base-package="com.spring.project" />
 
 </beans:beans>
