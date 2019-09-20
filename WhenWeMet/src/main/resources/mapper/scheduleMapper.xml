@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org.dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.ScheduleMapper">
+<!-- <![CDATA[ ]]> -->
+	<select id="select" resultType="dto.ScheduleDTO">
+		select * from schedule where userid = #{userid}
+	</select>
+	<insert id="insert">
+		<![CDATA[
+			insert into schedule (sname, start_time, end_time, userid)
+			values (#{sname}, #{start_time}, #{end_time}, #{userid})
+		 ]]>
+	</insert>
+	<delete id="delete">
+		delete from schedule where sid = #{sid}
+	</delete>
+	<update id="update">
+		update schedule
+		set sname = #{sname},
+		start_time = #{start_time},
+		end_time = #{end_time}
+		where sid = #{sid}
+	</update>
+</mapper>
