@@ -32,7 +32,7 @@ public class PartyDAO {
 		sqlSession.delete(NAMESPACE + ".delete", partyDto);
 	}
 	
-	public List<PartyDTO> listAll() throws Exception {
-		return sqlSession.selectList(NAMESPACE + ".listAll");
+	public List<PartyDTO> listAll(String uid) throws Exception {
+		return sqlSession.selectList(NAMESPACE + ".listAll", uid);
 	}
 }

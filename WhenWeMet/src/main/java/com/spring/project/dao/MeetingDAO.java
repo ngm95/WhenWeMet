@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.spring.project.dto.MeetingDTO;
+import com.spring.project.util.MeetingRequest;
 
 @Repository
 public class MeetingDAO{
@@ -20,8 +21,23 @@ public class MeetingDAO{
 		sqlSession.insert(NAMESPACE + ".create", meetingDto);
 	}
 	
-	public MeetingDTO read(Integer mid) throws Exception {
-		return sqlSession.selectOne(NAMESPACE + ".read", mid); 
+	public void create(MeetingRequest meRe) throws Exception {
+		sqlSession.insert(NAMESPACE + ".create", meRe);
+	}
+	
+	public MeetingDTO readByName(String mname) throws Exception {
+		return sqlSession.selectOne(NAMESPACE + ".readByName", mname); 
+	}
+	
+	public MeetingDTO readByCreator(String creator) throws Exception {
+		return sqlSession.selectOne(NAMESPACE + ".readByCreator", creator); 
+	}
+	
+	public MeetingDTO readUniqueMeeting(String mname, String creator) throws Exception {
+		MeetingDTO meetingDto = new MeetingDTO();
+		meetingDto.setMname(mname);
+		meetingDto.setCreator(creator);
+		return sqlSession.selectOne(NAMESPACE + ".readUniqueMeeting", meetingDto); 
 	}
 	
 	public void update(MeetingDTO meetingDto) throws Exception {
@@ -32,7 +48,7 @@ public class MeetingDAO{
 		sqlSession.delete(NAMESPACE + ".delete", mid); 
 	}
 	
-	public List<MeetingDTO> listAll() throws Exception {
-		return sqlSession.selectList(NAMESPACE + ".listAll");
+	public List<MeetingDTO> listAll(String userid) throws Exception {
+		return sqlSession.selectList(NAMESPACE + ".listAll", userid);
 	}
 }

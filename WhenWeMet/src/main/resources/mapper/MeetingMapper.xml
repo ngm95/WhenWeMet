@@ -16,7 +16,7 @@
         )
     </insert>
 
-	<select id="read" resultType="com.spring.project.dto.MeetingDTO">
+	<select id="readByName" resultType="com.spring.project.dto.MeetingDTO">
 		SELECT 
 			mid,
 			mname,
@@ -24,7 +24,29 @@
 		FROM
 			meeting
 		WHERE 
-			mid = #{mid}
+			mname = #{mname}
+	</select>
+	
+	<select id="readByCreator" resultType="com.spring.project.dto.MeetingDTO">
+		SELECT 
+			mid,
+			mname,
+			creator
+		FROM
+			meeting
+		WHERE 
+			creator = #{creator}
+	</select>
+	
+	<select id="readUniqueMeeting" resultType="com.spring.project.dto.MeetingDTO">
+		SELECT 
+			mid,
+			mname,
+			creator
+		FROM
+			meeting
+		WHERE 
+			mname = #{mname} AND creator = #{creator}
 	</select>
 	
 	<update id="update">
@@ -43,12 +65,18 @@
 	<select id="listAll" resultType="com.spring.project.dto.MeetingDTO">
 		<![CDATA[
 		SELECT 
-			mid,
-			mname,
-			creator
-		FROM
-			meeting
-		WHERE mid > 0
+			mname, mid
+		FROM 
+			meeting 
+		WHERE 
+			mid IN (
+				SELECT 
+					pid 
+				FROM 
+					party 
+				WHERE 
+					uid = #{userid}
+					)
 		ORDER BY mid DESC
 		]]>
 	</select>

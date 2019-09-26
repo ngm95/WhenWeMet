@@ -35,7 +35,7 @@ public class PartyService {
 		partyDao.delete(partyDto);
 	}
 	
-	public List<PartyDTO> listAll() throws Exception {
-		return partyDao.listAll();
+	public List<PartyDTO> listAll(String uid) throws Exception {
+		return partyDao.listAll(uid);
 	}
 }

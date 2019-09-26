@@ -1,11 +1,13 @@
 package com.spring.project.controller;
 
-import javax.annotation.Resource;
+import java.util.List;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -14,9 +16,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spring.project.dto.InvitationDTO;
+import com.spring.project.dto.MeetingDTO;
 import com.spring.project.exception.AlreadyExistingEmailException;
 import com.spring.project.exception.AlreadyExistingIdException;
 import com.spring.project.exception.IdPasswordNotMatchingException;
+import com.spring.project.service.MeetingService;
 import com.spring.project.service.UserService;
 import com.spring.project.util.AuthInfo;
 import com.spring.project.util.LoginCommand;
@@ -27,9 +32,11 @@ import com.spring.project.util.RegisterRequest;
 @RequestMapping("/user")
 public class UserContoller {
 	
-	@Resource(name="userService")
+	@Autowired
 	private UserService userSer;
-
+	@Autowired
+	private MeetingService meetingSer;
+	
 	@RequestMapping(value="/signin", method=RequestMethod.GET)
 	public ModelAndView signinGET(LoginCommand loginCommand,
 			@CookieValue(value="REMEMBER", required=false) Cookie rememberCookie) throws Exception {
@@ -70,11 +77,16 @@ public class UserContoller {
             }
             response.addCookie(rememberCookie);
 			
+            List<MeetingDTO> myMeeting = null;
+            session.setAttribute("myMeeting", myMeeting);
+            
+            List<InvitationDTO> myInvitation = null;
+            session.setAttribute("myInvitation", myInvitation);
+          
 		} catch(IdPasswordNotMatchingException e) {
 			bindingResult.rejectValue("password", "notMatch", "아이디와 비밀번호가 맞지않습니다.");
 			mv.setViewName("/user/loginForm");
 			return mv;
-			
 		}
 		
 		mv.setViewName("redirect:/");

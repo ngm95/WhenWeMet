@@ -17,31 +17,20 @@
         <div class="signup-box-body">
             <p class="box-msg">Please Sign In</p>
 
-            <form:form role="form" modelAttribute="loginCommand" action="${pageContext.request.contextPath }/user/signin" method="post">
+            <form:form role="form" modelAttribute="meetingCommand" action="${pageContext.request.contextPath }/meeting/make" method="post">
                 <div class="form-group has-feedback">
-                    <form:input type="text" class="form-control" placeholder="ID" path="id"/>
+                    <form:input type="text" class="form-control" placeholder="" path="mname"/>
                     <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-                    <form:errors path="id" class="signup-errors"/>
-                </div>
-                <div class="form-group has-feedback">
-                    <form:input type="password" class="form-control" placeholder="PASSWORD" path="password"/>
-                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-                    <form:errors path="password" class="signup-errors"/>
+                    <form:errors path="mname" class="signup-errors"/>
+                    <form:input type="text" class="form-control" placeholder="${userid}" readonly path="creator"/>
                 </div>
                 <div class="row">
-                    <div class="col-xs-8">
-                        <label class="btn">
-                            <form:checkbox path="rememberId"/> 아이디 기억하기
-                        </label>
-                    </div>
                     <div class="col-xs-3">
-                        <button type="submit" class="btn btn-style">sign in</button>
+                        <button type="submit" class="btn btn-style">만들기</button>
                     </div>
                 </div>
             </form:form>
-            
         </div>
     </div>
-
 </body>
 </html>

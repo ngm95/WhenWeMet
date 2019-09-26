@@ -1,22 +1,26 @@
 package com.spring.project.dto;
 
 public class PartyDTO {
-	private Integer mid;
-	private String userid;
-	public Integer getMid() {
-		return mid;
+	private Integer pid;
+	private String uid;
+	
+	public Integer getPid() {
+		return pid;
 	}
-	public void setMid(Integer mid) {
-		this.mid = mid;
+
+	public void setPid(Integer pid) {
+		this.pid = pid;
 	}
-	public String getUserid() {
-		return userid;
+
+	public String getUid() {
+		return uid;
 	}
-	public void setUserid(String userid) {
-		this.userid = userid;
+
+	public void setUid(String uid) {
+		this.uid = uid;
 	}
 	@Override
 	public String toString() {
-		return "mid=" + mid + ", userid=" + userid;
+		return "pid=" + pid + ", uid=" + uid;
 	}
 }
