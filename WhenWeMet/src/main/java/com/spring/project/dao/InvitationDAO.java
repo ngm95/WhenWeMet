@@ -10,4 +10,5 @@ public interface InvitationDAO {
 	public void insert(InvitationDTO dto);
 	public void delete(InvitationDTO dto);
 	public List<InvitationDTO> getInvitationList(@Param("userid") String userid);
+	public List<String> getUserListByMid(@Param("mid") int mid);
 }

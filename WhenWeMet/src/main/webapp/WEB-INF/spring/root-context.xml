@@ -17,6 +17,7 @@
 	
 	<context:component-scan base-package="com.spring.project.dto"></context:component-scan>
 	<context:component-scan base-package="com.spring.project.service"></context:component-scan>
+	<context:component-scan base-package="com.spring.project.controller"></context:component-scan>
 	<mybatis-spring:scan base-package="com.spring.project.dao"/>
 	
 	<!-- mysql datasource -->

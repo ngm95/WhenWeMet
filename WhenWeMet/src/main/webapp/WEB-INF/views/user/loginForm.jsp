@@ -17,7 +17,7 @@
         <div class="signup-box-body">
             <p class="box-msg">Please Sign In</p>
 
-            <form:form role="form" commandName="loginCommand" action="${pageContext.request.contextPath }/user/signin" method="post">
+            <form:form role="form" modelAttribute="loginCommand" action="${pageContext.request.contextPath }/user/signin" method="post">
                 <div class="form-group has-feedback">
                     <form:input type="text" class="form-control" placeholder="ID" path="id"/>
                     <span class="glyphicon glyphicon-envelope form-control-feedback"></span>

@@ -9,6 +9,7 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.spring.project.dao.InvitationDAO;
 import com.spring.project.dao.ScheduleDAO;
 import com.spring.project.dto.ScheduleDTO;
 import com.spring.project.service.ScheduleService;
@@ -22,13 +23,12 @@ public class dbTest {
 	@Inject
 	ScheduleDAO dao;
 	
+	@Inject
+	InvitationDAO idao;
+	
 	@Test
 	public void insertTest() throws Exception {
-		List<String> list = new LinkedList<>();
-		list.add("user00");
-		list.add("user01");
-		list.add("user02");
-		svc.getAvailableTime(list);
+		idao.getUserListByMid(1).forEach(s -> System.out.println(s));
 		
 		
 		

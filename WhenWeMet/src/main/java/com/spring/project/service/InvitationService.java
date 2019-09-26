@@ -42,4 +42,9 @@ public class InvitationService {
 	public List<InvitationDTO> getInvitationList(String userid) {
 		return mapper.getInvitationList(userid);
 	}
+	
+	//같은 모임에 있는 사용자 확인
+	public List<String> getUserByMid(int mid) {
+		return mapper.getUserListByMid(mid);
+	}
 }

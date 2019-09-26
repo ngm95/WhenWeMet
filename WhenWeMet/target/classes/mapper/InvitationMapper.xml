@@ -17,7 +17,13 @@
 			from invitation
 			where receiver not in(select i1.receiver
 			from invitation i1 inner join invitation i2 
-			on i1.sender = i2.receiver and i1.receiver = i2.sender) and receiver = #{userid};
+			on i1.sender = i2.receiver and i1.receiver = i2.sender) and receiver = #{userid}
 		]]>
+	</select>
+	<select id="getUserListByMid" resultType="String">
+		select i1.sender
+		from invitation i1 inner join invitation i2
+		on i1.sender = i2.receiver and i1.receiver = i2.sender 
+		where i1.mid = i2.mid and i1.mid = #{mid}
 	</select>
 </mapper>
