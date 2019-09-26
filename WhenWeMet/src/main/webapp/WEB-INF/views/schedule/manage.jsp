@@ -10,18 +10,7 @@
 	<div class="container">
         <%@ include file="/WEB-INF/views/includes/03_header.jsp" %>
 		
-		<c:catch>
-			<c:choose>
-				<c:when test="${emtpy authInfo }">
-					<p>받은 초대가 없습니다.</p>
-				</c:when>
-				<c:otherwise>
-					<c:forEach var="meeting" items="${myMeeting}" varStatus="status">
-						<a class="dropdown-item" href="${pageContext.request.contextPath }/schedule/manage?${meeting.mid}">${meeting.mid}</a>
-					</c:forEach>
-				</c:otherwise>
-			</c:choose>
-		</c:catch>
+		
 		
         <%@ include file="/WEB-INF/views/includes/09_footer.jsp" %>
     </div>
