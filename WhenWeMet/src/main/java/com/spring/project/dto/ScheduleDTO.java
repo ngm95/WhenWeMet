@@ -1,6 +1,6 @@
 package com.spring.project.dto;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 import lombok.Data;
 
@@ -8,7 +8,7 @@ import lombok.Data;
 public class ScheduleDTO {
 	private int sid;
 	private String sname;
-	private LocalDateTime start_time;
-	private LocalDateTime end_time;
+	private Date start_time;
+	private Date end_time;
 	private String userid;
 }
