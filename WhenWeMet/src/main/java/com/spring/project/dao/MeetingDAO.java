@@ -53,6 +53,11 @@ public class MeetingDAO{
 		return sqlSession.selectOne(NAMESPACE + ".readByCreator", creator); 
 	}
 	
+	//mid로 meetingdto 검색
+	public MeetingDTO readByMid(int mid) throws Exception {
+		return sqlSession.selectOne(NAMESPACE + ".readByMid", mid); 
+	}
+	
 	/**
 	 * 모임 이름과 모임 생성자 ID를 모두 사용해 유일한 모임 정보를 반환. 
 	 * @param mname 모임 이름

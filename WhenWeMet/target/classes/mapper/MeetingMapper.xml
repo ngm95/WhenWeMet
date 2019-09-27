@@ -38,6 +38,10 @@
 			creator = #{creator}
 	</select>
 	
+	<select id="readByMid" resultType="com.spring.project.dto.MeetingDTO">
+		select * from meeting where mid = #{mid}
+	</select>
+	
 	<select id="readUniqueMeeting" resultType="com.spring.project.dto.MeetingDTO">
 		SELECT 
 			mid,

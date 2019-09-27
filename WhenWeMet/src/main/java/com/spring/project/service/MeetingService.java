@@ -28,7 +28,7 @@ public class MeetingService {
 	public void create(MeetingRequest meRe) throws Exception {
 		MeetingDTO unique = meetingDao.readUniqueMeeting(meRe.getMname(), meRe.getCreator());
 		if (unique != null) {
-			throw new AlreadyExistingMnameException("ÀÌ¹Ì Á¸ÀçÇÏ´Â ÀÏÁ¤ ÀÌ¸§ÀÔ´Ï´Ù.");
+			throw new AlreadyExistingMnameException("ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½Ô´Ï´ï¿½.");
 		}
 		
 		meetingDao.create(meRe);
@@ -40,6 +40,10 @@ public class MeetingService {
 	
 	public MeetingDTO readByCreator(String creator) throws Exception {
 		return meetingDao.readByCreator(creator);
+	}
+	
+	public MeetingDTO readByMid(int mid) throws Exception {
+		return meetingDao.readByMid(mid);
 	}
 	
 	public void update(MeetingDTO meetingDto) throws Exception {
@@ -57,7 +61,7 @@ public class MeetingService {
 	public MeetingDTO meetingInfo(String mname, String creator) throws Exception {
 		MeetingDTO meeting = meetingDao.readUniqueMeeting(mname, creator);
 		if (meeting == null) {
-			throw new NotExistingMnameException("ÀÌ¹Ì Á¸ÀçÇÏ´Â ÀÏÁ¤ ÀÌ¸§ÀÔ´Ï´Ù.");
+			throw new NotExistingMnameException("ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½Ô´Ï´ï¿½.");
 		}
 		
 		return meeting;

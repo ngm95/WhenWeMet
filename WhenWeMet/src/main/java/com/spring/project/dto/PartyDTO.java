@@ -1,26 +1,9 @@
 package com.spring.project.dto;
 
+import lombok.Data;
+
+@Data
 public class PartyDTO {
-	private Integer pid;
+	private int pid;
 	private String uid;
-	
-	public Integer getPid() {
-		return pid;
-	}
-
-	public void setPid(Integer pid) {
-		this.pid = pid;
-	}
-
-	public String getUid() {
-		return uid;
-	}
-
-	public void setUid(String uid) {
-		this.uid = uid;
-	}
-	@Override
-	public String toString() {
-		return "pid=" + pid + ", uid=" + uid;
-	}
 }

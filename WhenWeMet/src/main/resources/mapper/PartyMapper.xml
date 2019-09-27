@@ -5,7 +5,7 @@
 	
 <mapper namespace="com.spring.project.mappers.sql.PartyMapper">
 	<insert id="create">
-        INSERT INTO meeting (
+        INSERT INTO party (
         pid
         , uid
         ) VALUES (
@@ -36,7 +36,7 @@
 	<select id="listAll" resultType="com.spring.project.dto.PartyDTO">
 		<![CDATA[
 		SELECT 
-			pid
+			*
 		FROM
 			party
 		WHERE uid = #{uid}

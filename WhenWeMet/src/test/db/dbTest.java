@@ -12,6 +12,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.spring.project.dao.InvitationDAO;
 import com.spring.project.dao.ScheduleDAO;
 import com.spring.project.dto.ScheduleDTO;
+import com.spring.project.service.InvitationService;
+import com.spring.project.service.PartyService;
 import com.spring.project.service.ScheduleService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -24,13 +26,14 @@ public class dbTest {
 	ScheduleDAO dao;
 	
 	@Inject
-	InvitationDAO idao;
+	InvitationService isvc;
 	
+	@Inject
+	PartyService pvc;
 	@Test
 	public void insertTest() throws Exception {
-		idao.getUserListByMid(1).forEach(s -> System.out.println(s));
-		
-		
-		
+		isvc.invite(1, "user00", "admin");
+		isvc.invite(1, "user01", "admin");
+		isvc.invite(1, "user02", "admin");
 	}
 }
