@@ -5,23 +5,23 @@
 	
 <mapper namespace="com.spring.project.mappers.sql.PartyMapper">
 	<insert id="create">
-        INSERT INTO meeting (
-        mid
-        , userid
+        INSERT INTO party (
+        pid
+        , uid
         ) VALUES (
-        #{mid}
-        , #{userid}
+        #{pid}
+        , #{uid}
         )
     </insert>
 
 	<select id="read" resultType="com.spring.project.dto.PartyDTO">
 		SELECT 
-			mid,
-			userid
+			pid,
+			uid
 		FROM
 			party
 		WHERE 
-			mid = #{mid} AND userid = #{userid}
+			pid = #{pid} AND uid = #{uid}
 	</select>
 	
 	<update id="update">
@@ -30,18 +30,17 @@
 	
 	<delete id="delete">
 		DELETE FROM party
-		WHERE mid = #{mid} AND userid = #{userid}
+		WHERE pid = #{pid} AND uid = #{uid}
 	</delete>
 	
 	<select id="listAll" resultType="com.spring.project.dto.PartyDTO">
 		<![CDATA[
 		SELECT 
-			mid,
-			userid
+			*
 		FROM
 			party
-		WHERE mid > 0
-		ORDER BY mid DESC
+		WHERE uid = #{uid}
+		ORDER BY pid DESC
 		]]>
 	</select>
 	

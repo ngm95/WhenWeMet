@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 
 import com.spring.project.dao.MeetingDAO;
 import com.spring.project.dto.MeetingDTO;
+import com.spring.project.exception.AlreadyExistingMnameException;
+import com.spring.project.exception.NotExistingMnameException;
+import com.spring.project.util.MeetingRequest;
 
 @Service
 public class MeetingService {
@@ -22,8 +25,25 @@ public class MeetingService {
 		meetingDao.create(meetingDto);
 	}
 	
-	public MeetingDTO read(Integer mid) throws Exception {
-		return meetingDao.read(mid);
+	public void create(MeetingRequest meRe) throws Exception {
+		MeetingDTO unique = meetingDao.readUniqueMeeting(meRe.getMname(), meRe.getCreator());
+		if (unique != null) {
+			throw new AlreadyExistingMnameException("�̹� �����ϴ� ���� �̸��Դϴ�.");
+		}
+		
+		meetingDao.create(meRe);
+	}
+	
+	public MeetingDTO readByName(String mname) throws Exception {
+		return meetingDao.readByName(mname);
+	}
+	
+	public MeetingDTO readByCreator(String creator) throws Exception {
+		return meetingDao.readByCreator(creator);
+	}
+	
+	public MeetingDTO readByMid(int mid) throws Exception {
+		return meetingDao.readByMid(mid);
 	}
 	
 	public void update(MeetingDTO meetingDto) throws Exception {
@@ -34,7 +54,16 @@ public class MeetingService {
 		meetingDao.delete(mid);
 	}
 	
-	public List<MeetingDTO> listAll() throws Exception {
-		return meetingDao.listAll();
+	public List<MeetingDTO> listAll(String creator) throws Exception {
+		return meetingDao.listAll(creator);
+	}
+	
+	public MeetingDTO meetingInfo(String mname, String creator) throws Exception {
+		MeetingDTO meeting = meetingDao.readUniqueMeeting(mname, creator);
+		if (meeting == null) {
+			throw new NotExistingMnameException("�̹� �����ϴ� ���� �̸��Դϴ�.");
+		}
+		
+		return meeting;
 	}
 }

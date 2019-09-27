@@ -41,6 +41,11 @@ public class UserService {
 		return userDao.listAll();
 	}
 	
+	/**
+	 * 회원가입을 시도한다.
+	 * 이메일이나 아이디가 중복되면 예외를 던지고 회원가입을 허가하지 않는다.
+	 * @param regReq 회원가입 정보
+	 */
 	public void register(RegisterRequest regReq) throws Exception {
 		
         UserDTO email = userDao.readByEmail(regReq.getEmail());
@@ -56,6 +61,11 @@ public class UserService {
         userDao.insertUser(regReq);
 	}
 
+	/**
+	 * 로그인된 사람의 정보를 반환한다.
+	 * @param loginCommand 로그인 정보
+	 * @return 로그인한 사람의 ID, 이름, 직책을 담은 AuthInfo
+	 */
 	public AuthInfo loginAuth(LoginCommand loginCommand) throws Exception {
 		
 		UserDTO user = userDao.readById(loginCommand.getId());
