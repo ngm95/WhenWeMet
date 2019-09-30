@@ -1,6 +1,7 @@
 package com.spring.project.controller;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
@@ -27,7 +28,7 @@ public class MeetingController {
 	 * @param /meeting/makeForm.jsp로 매핑되는 ModelAndView
 	 */
 	@RequestMapping(value="/make", method=RequestMethod.GET)
-	public ModelAndView makeGET(MeetingCommand meetingCommand) {
+	public ModelAndView makeGET(MeetingCommand meetingCommand, HttpSession session) {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("/meeting/makeForm");
 		return mv;
@@ -46,6 +47,7 @@ public class MeetingController {
 		
 		if (bindingResult.hasErrors()) {
 			mv.setViewName("/meeting/makeForm");
+			System.out.println("입력 에러");
 			return mv;
 		}
 		
@@ -56,12 +58,9 @@ public class MeetingController {
 		} catch(AlreadyExistingIdException e) {
 			bindingResult.rejectValue("mname", "duplicate", "중복되는 이름입니다.");
 			mv.setViewName("/meeting/makeForm");
+			System.out.println("이름 중복");
 			return mv;
-		} catch(Exception e) {
-			bindingResult.reject("데이터베이스 오류가 발생했습니다.");
-			mv.setViewName("/meeting/makeForm");
-			return mv;
-		}
+		} 
 		
 		mv.setViewName("redirect:/");
 		return mv;

@@ -50,11 +50,11 @@
 							<li role="presentation"><a
 								href="/user/signin">새로운 일정 만들기</a>
 							</li>
-							<%-- 탭:드롭다운-일정관리 --%>
+							<%-- 탭:일정관리 --%>
 							<li role="presentation"><a
 								href="/user/signin">일정 관리</a>
 							</li>
-							<%-- 드롭다운-받은초대 --%>
+							<%-- 탭:받은초대 --%>
 							<li role="presentation"><a
 								href="/user/signin">받은 초대</a>
 							</li>
@@ -68,11 +68,11 @@
 							<li role="presentation">
 								<a href="/meeting/make">새로운 일정 만들기</a>
 							</li>
-							<%-- 탭:드롭다운-일정관리 --%>
+							<%-- 탭:일정관리 --%>
 							<li role="presentation">
 								<a href="/schedule/list/${authInfo.id}">일정 관리</a>
 							</li>
-							<%-- 드롭다운-받은초대 --%>
+							<%-- 탭:받은초대 --%>
 							<li role="presentation">
 								<a href="/invitation/index">받은 초대</a>
 							</li>

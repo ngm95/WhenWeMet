@@ -21,7 +21,7 @@ public class MeetingDAO{
 	 * MeetingDTO를 이용한 INSERT작업
 	 * @param meetingDto 데이터베이스에 넣을 DTO
 	 */
-	public void create(MeetingDTO meetingDto) throws Exception {
+	public void create(MeetingDTO meetingDto) {
 		sqlSession.insert(NAMESPACE + ".create", meetingDto);
 	}
 	
@@ -29,7 +29,8 @@ public class MeetingDAO{
 	 * MeetingRequest를 이용한 INSERT작업
 	 * @param meRe 데이터베이스에 넣을 정보
 	 */
-	public void create(MeetingRequest meRe) throws Exception {
+	public void create(MeetingRequest meRe){
+		System.out.println(meRe.getMname() + " " + meRe.getCreator());
 		sqlSession.insert(NAMESPACE + ".create", meRe);
 	}
 	
@@ -39,7 +40,7 @@ public class MeetingDAO{
 	 * @param mname 모임 이름
 	 * @return MeetingDTO
 	 */
-	public MeetingDTO readByName(String mname) throws Exception {
+	public MeetingDTO readByName(String mname) {
 		return sqlSession.selectOne(NAMESPACE + ".readByName", mname); 
 	}
 	
@@ -49,12 +50,12 @@ public class MeetingDAO{
 	 * @param creator 모임 생성자
 	 * @return MeetingDTO
 	 */
-	public MeetingDTO readByCreator(String creator) throws Exception {
+	public MeetingDTO readByCreator(String creator) {
 		return sqlSession.selectOne(NAMESPACE + ".readByCreator", creator); 
 	}
 	
 	//mid로 meetingdto 검색
-	public MeetingDTO readByMid(int mid) throws Exception {
+	public MeetingDTO readByMid(int mid) {
 		return sqlSession.selectOne(NAMESPACE + ".readByMid", mid); 
 	}
 	
@@ -64,22 +65,22 @@ public class MeetingDAO{
 	 * @param creator 모임 생성자
 	 * @return MeetingDTO
 	 */
-	public MeetingDTO readUniqueMeeting(String mname, String creator) throws Exception {
+	public MeetingDTO readUniqueMeeting(String mname, String creator) {
 		MeetingDTO meetingDto = new MeetingDTO();
 		meetingDto.setMname(mname);
 		meetingDto.setCreator(creator);
 		return sqlSession.selectOne(NAMESPACE + ".readUniqueMeeting", meetingDto); 
 	}
 	
-	public void update(MeetingDTO meetingDto) throws Exception {
+	public void update(MeetingDTO meetingDto) {
 		sqlSession.update(NAMESPACE + ".update", meetingDto);
 	}
 	
-	public void delete(Integer mid) throws Exception {
+	public void delete(Integer mid) {
 		sqlSession.delete(NAMESPACE + ".delete", mid); 
 	}
 	
-	public List<MeetingDTO> listAll(String userid) throws Exception {
+	public List<MeetingDTO> listAll(String userid) {
 		return sqlSession.selectList(NAMESPACE + ".listAll", userid);
 	}
 }
