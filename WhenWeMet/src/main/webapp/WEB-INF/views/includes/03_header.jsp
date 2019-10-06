@@ -37,7 +37,7 @@
 	</nav>
 	
 	<h3 class="text-muted">
-		<b>When</b>We<b>Met</b>
+		<a href="/"><b>우리</b>언제<b>만날까?</b></a>
 	</h3>
 	
 	<div>
@@ -82,7 +82,4 @@
 			</c:choose>
 		</c:catch>
 	</div>
-
-
-	
 </div>

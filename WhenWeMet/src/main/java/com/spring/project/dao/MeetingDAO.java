@@ -30,7 +30,6 @@ public class MeetingDAO{
 	 * @param meRe 데이터베이스에 넣을 정보
 	 */
 	public void create(MeetingRequest meRe){
-		System.out.println(meRe.getMname() + " " + meRe.getCreator());
 		sqlSession.insert(NAMESPACE + ".create", meRe);
 	}
 	

@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.project.exception.AlreadyExistingIdException;
 import com.spring.project.service.MeetingService;
+import com.spring.project.util.AuthInfo;
 import com.spring.project.util.MeetingCommand;
 import com.spring.project.util.MeetingRequest;
 
@@ -24,12 +25,20 @@ public class MeetingController {
 	
 	/**
 	 * index.jsp에서 새로운 일정 만들기 버튼을 클릭하면 동작.
-	 * /meeting/makeForm.jsp로 매핑한다.
+	 * 정상적으로 로그인하지 않았다면 '/'로 리다이렉트,
+	 * 정상적이라면 /meeting/makeForm.jsp로 매핑한다.
 	 * @param /meeting/makeForm.jsp로 매핑되는 ModelAndView
 	 */
 	@RequestMapping(value="/make", method=RequestMethod.GET)
 	public ModelAndView makeGET(MeetingCommand meetingCommand, HttpSession session) {
 		ModelAndView mv = new ModelAndView();
+		
+		AuthInfo authInfo = (AuthInfo)session.getAttribute("authInfo");
+		if (authInfo == null) {
+			mv.setViewName("redirect:/");
+			return mv;
+		}
+		
 		mv.setViewName("/meeting/makeForm");
 		return mv;
 	}
@@ -47,7 +56,6 @@ public class MeetingController {
 		
 		if (bindingResult.hasErrors()) {
 			mv.setViewName("/meeting/makeForm");
-			System.out.println("입력 에러");
 			return mv;
 		}
 		
@@ -58,7 +66,6 @@ public class MeetingController {
 		} catch(AlreadyExistingIdException e) {
 			bindingResult.rejectValue("mname", "duplicate", "중복되는 이름입니다.");
 			mv.setViewName("/meeting/makeForm");
-			System.out.println("이름 중복");
 			return mv;
 		} 
 		
