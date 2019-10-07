@@ -118,4 +118,12 @@ public class MeetingController {
 	public ResponseEntity<List<String>> getUserListInMeeting(@PathVariable("mid") int mid) throws Exception {
 		return new ResponseEntity<List<String>>(psvc.listByPid(mid), HttpStatus.OK);
 	}
+	
+	@GetMapping(value="/name/{mid}", produces="text/plain;charset=UTF-8")
+	@ResponseBody
+	public ResponseEntity<String> getNameOfMeeting(@PathVariable("mid") int mid) throws Exception {
+		MeetingDTO dto = meetingSer.readByMid(mid);
+		String mname = dto.getMname();
+		return new ResponseEntity<String>(mname, HttpStatus.OK);
+	}
 }

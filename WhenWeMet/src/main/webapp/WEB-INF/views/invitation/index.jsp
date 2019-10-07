@@ -30,13 +30,27 @@
 <script src="/resources/js/invitation.js"></script>
 <script type="text/javascript">
 	var userId = $("#userId").val();
+	function getMeetingName(mid) {
+		var mid = mid;
+		var mname = null;
+		$.ajax({
+			url : "/meeting/name/"+mid,
+			type : "get",
+			success : function(data) {
+				mname = data;
+			},
+			async: false
+		});
+		return mname;
+	}
 	function showList(list) {
 		var list = list;
 		var str = "";
 		var len = list.length;
 		for(var i = 0; i < len; i++) {
 			var data = list[i];
-			str += "<li id='"+ data.sender +"'>" + data.sender + " 님이 "+ data.mid + " 모임으로 초대하였습니다.";
+			var meetingName = getMeetingName(data.mid);
+			str += "<li id='"+ data.sender +"'>" + data.sender + " 님이 "+ meetingName + " 모임으로 초대하였습니다.";
 			str += "<a class='accept' href='"+data.mid+"'> 수락</a> <a class='deny' href='"+data.mid+"'>거절</a>"
 			str += "</li>";
 		}

@@ -15,7 +15,7 @@
 				<c:forEach var="meeting" items="${meetingList }">
 					<div class="panel panel-default panel-info meeting" id="${meeting.mid }">
 						<div class="panel-heading meeting">${meeting.mname }</div>
-						<div class="panel-body">${meeting.creator }</div>
+						<div class="panel-body">created by <b>${meeting.creator }</b></div>
 					</div>
 					<hr>
 				</c:forEach>
