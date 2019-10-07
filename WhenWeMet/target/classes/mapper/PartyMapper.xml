@@ -44,5 +44,15 @@
 		]]>
 	</select>
 	
+	<select id="listByPid" resultType="String">
+		<![CDATA[
+		SELECT 
+			uid
+		FROM
+			party
+		WHERE pid = #{pid}
+		]]>
+	</select>
+	
 	
 </mapper>

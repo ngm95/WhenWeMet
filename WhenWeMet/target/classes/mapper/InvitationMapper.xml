@@ -18,7 +18,7 @@
 			where not exists 	(select a.* 
 								from invitation a, invitation b 
 								where a.sender = b.receiver and b.sender = a.receiver 
-								and i.sender = a.sender and i.receiver = a.receiver) 
+								and i.sender = a.sender and i.receiver = a.receiver and i.mid = a.mid) 
 								and i.receiver = #{userid}
 		]]>
 	</select>

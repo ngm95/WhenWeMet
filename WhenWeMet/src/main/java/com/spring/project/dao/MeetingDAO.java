@@ -28,6 +28,7 @@ public class MeetingDAO{
 	/**
 	 * MeetingRequest를 이용한 INSERT작업
 	 * @param meRe 데이터베이스에 넣을 정보
+	 * @param userId 
 	 */
 	public void create(MeetingRequest meRe){
 		sqlSession.insert(NAMESPACE + ".create", meRe);
