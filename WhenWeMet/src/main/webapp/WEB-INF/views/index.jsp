@@ -10,23 +10,15 @@
 	<div class="container">
 		<%@ include file="/WEB-INF/views/includes/03_header.jsp"%>
 		
-		<div class="jumbotron">
-			<h1>우리 언제 만날까?</h1>
-			<p class="lead">일정을 생성하고 팀원들과 맞는 시간을 찾아보세요!</p>
-		</div>
-		<div class="row marketing">
-			<c:catch>
-				<c:choose>
-					<c:when test="${empty authInfo}">
-						<!-- 로그인되지 않았을 때 -->
-					</c:when>
-					<c:otherwise>
-						<!-- 로그인 되었을 때 -->
-					</c:otherwise>
-				</c:choose>
-			</c:catch>
-			
-		</div>
+		<sec:authorize access="isAnonymous()">
+			<div class="jumbotron">
+				<h1>우리 언제 만날까?</h1>
+				<p class="lead">일정을 생성하고 팀원들과 맞는 시간을 찾아보세요!</p>
+			</div>
+		</sec:authorize>
+		<sec:authorize access="isAuthenticated()">
+			<%@ include file="/WEB-INF/views/meeting/makeForm.jsp" %>
+		</sec:authorize>
 		<%@ include file="/WEB-INF/views/includes/09_footer.jsp"%>
 	</div>
 

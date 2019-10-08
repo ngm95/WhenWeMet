@@ -16,12 +16,12 @@ import com.spring.project.util.LoginCommand;
 import com.spring.project.util.RegisterRequest;
 
 @Service
-public class UserService {
+public class SignUpService {
 	
 	private UserDAO userDao;
 	
 	@Inject
-	public UserService(UserDAO userDao) {
+	public SignUpService(UserDAO userDao) {
 		this.userDao = userDao;
 	}
 
@@ -42,9 +42,9 @@ public class UserService {
 	}
 	
 	/**
-	 * íšŒì›ê°€ì…ì„ ì‹œë„í•œë‹¤.
-	 * ì´ë©”ì¼ì´ë‚˜ ì•„ì´ë””ê°€ ì¤‘ë³µë˜ë©´ ì˜ˆì™¸ë¥¼ ë˜ì§€ê³  íšŒì›ê°€ì…ì„ í—ˆê°€í•˜ì§€ ì•ŠëŠ”ë‹¤.
-	 * @param regReq íšŒì›ê°€ì… ì •ë³´
+	 * ?šŒ?›ê°??…?„ ?‹œ?„?•œ?‹¤.
+	 * ?´ë©”ì¼?´?‚˜ ?•„?´?””ê°? ì¤‘ë³µ?˜ë©? ?˜ˆ?™¸ë¥? ?˜ì§?ê³? ?šŒ?›ê°??…?„ ?—ˆê°??•˜ì§? ?•Š?Š”?‹¤.
+	 * @param regReq ?šŒ?›ê°??… ? •ë³?
 	 */
 	public void register(RegisterRequest regReq) throws Exception {
 		
@@ -62,9 +62,9 @@ public class UserService {
 	}
 
 	/**
-	 * ë¡œê·¸ì¸ëœ ì‚¬ëŒì˜ ì •ë³´ë¥¼ ë°˜í™˜í•œë‹¤.
-	 * @param loginCommand ë¡œê·¸ì¸ ì •ë³´
-	 * @return ë¡œê·¸ì¸í•œ ì‚¬ëŒì˜ ID, ì´ë¦„, ì§ì±…ì„ ë‹´ì€ AuthInfo
+	 * ë¡œê·¸?¸?œ ?‚¬?Œ?˜ ? •ë³´ë?? ë°˜í™˜?•œ?‹¤.
+	 * @param loginCommand ë¡œê·¸?¸ ? •ë³?
+	 * @return ë¡œê·¸?¸?•œ ?‚¬?Œ?˜ ID, ?´ë¦?, ì§ì±…?„ ?‹´?? AuthInfo
 	 */
 	public AuthInfo loginAuth(LoginCommand loginCommand) throws Exception {
 		
