@@ -5,15 +5,10 @@
 	
 <mapper namespace="com.spring.project.mappers.sql.MeetingMapper">
 	<insert id="create">
-        INSERT INTO meeting (
-        mid
-        , mname
-        , creator
-        ) VALUES (
-        #{mid}
-        , #{mname}
-        , #{creator}
-        )
+        INSERT INTO 
+        	meeting (mname , creator) 
+        VALUES 
+        	(#{mname} , #{creator})
     </insert>
 
 	<select id="readByName" resultType="com.spring.project.dto.MeetingDTO">

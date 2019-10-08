@@ -21,32 +21,32 @@ public class MeetingService {
 		this.meetingDao = meetingDao;
 	}
 	
-	public void create(MeetingDTO meetingDto) throws Exception {
+	public void create(MeetingDTO meetingDto){
 		meetingDao.create(meetingDto);
 	}
 	
-	public void create(MeetingRequest meRe) throws Exception {
+	public void create(MeetingRequest meRe) throws AlreadyExistingMnameException {
 		MeetingDTO unique = meetingDao.readUniqueMeeting(meRe.getMname(), meRe.getCreator());
 		if (unique != null) {
-			throw new AlreadyExistingMnameException("�̹� �����ϴ� ���� �̸��Դϴ�.");
+			throw new AlreadyExistingMnameException("이미 존재하는 이름입니다.");
 		}
 		
 		meetingDao.create(meRe);
 	}
 	
-	public MeetingDTO readByName(String mname) throws Exception {
+	public MeetingDTO readByName(String mname) {
 		return meetingDao.readByName(mname);
 	}
 	
-	public MeetingDTO readByCreator(String creator) throws Exception {
+	public MeetingDTO readByCreator(String creator) {
 		return meetingDao.readByCreator(creator);
 	}
 	
-	public MeetingDTO readByMid(int mid) throws Exception {
+	public MeetingDTO readByMid(int mid) {
 		return meetingDao.readByMid(mid);
 	}
 	
-	public void update(MeetingDTO meetingDto) throws Exception {
+	public void update(MeetingDTO meetingDto) {
 		meetingDao.update(meetingDto);
 	}
 	
@@ -61,7 +61,7 @@ public class MeetingService {
 	public MeetingDTO meetingInfo(String mname, String creator) throws Exception {
 		MeetingDTO meeting = meetingDao.readUniqueMeeting(mname, creator);
 		if (meeting == null) {
-			throw new NotExistingMnameException("�̹� �����ϴ� ���� �̸��Դϴ�.");
+			throw new NotExistingMnameException("해당 이름의 모임이 존재하지 않습니다.");
 		}
 		
 		return meeting;

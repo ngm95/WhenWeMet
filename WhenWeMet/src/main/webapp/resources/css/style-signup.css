@@ -69,7 +69,12 @@ b {
     font-size: 12px;
 }
 
-.signup-errors {
+.signup-errors{
+	color : red;
+	margin : 10px;
+}
+
+.make-errors{
 	color : red;
 	margin : 10px;
 }

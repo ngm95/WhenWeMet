@@ -13,15 +13,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.spring.project.dao.UserDAO;
 import com.spring.project.dto.InvitationDTO;
 import com.spring.project.dto.MeetingDTO;
 import com.spring.project.dto.PartyDTO;
+import com.spring.project.dto.UserDTO;
 import com.spring.project.service.InvitationService;
 import com.spring.project.service.MeetingService;
 import com.spring.project.service.PartyService;
 
+import lombok.extern.log4j.Log4j;
+
 @RestController
 @RequestMapping("/invitation")
+@Log4j
 public class InvitationController {
 	@Autowired
 	InvitationService svc;
@@ -32,6 +37,9 @@ public class InvitationController {
 	@Autowired
 	MeetingService msvc;
 	
+	@Autowired
+	UserDAO udao;
+	
 	@GetMapping("/list/{userId}")
 	public ResponseEntity<List<InvitationDTO>> getList(@PathVariable("userId") String userId) {
 		List<InvitationDTO> list = svc.getInvitationList(userId);
@@ -40,8 +48,13 @@ public class InvitationController {
 	
 	@PostMapping("/invite/{mid}/{userId}/{receiver}") 
 	public ResponseEntity<Void> invite(@PathVariable("mid") int mid, @PathVariable("userId") String userId, @PathVariable("receiver") String receiver) throws Exception {
-		svc.invite(mid, userId, receiver);
-		return new ResponseEntity<>(HttpStatus.OK);
+		UserDTO dto = udao.readById(receiver);
+		if(dto == null)
+			return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+		else {
+			svc.invite(mid, userId, receiver);
+			return new ResponseEntity<>(HttpStatus.OK);
+		}
 	}
 	
 	@PostMapping("/accept/{mid}/{userId}/{sender}")

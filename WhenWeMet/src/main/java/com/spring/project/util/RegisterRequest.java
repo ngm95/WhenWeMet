@@ -11,27 +11,27 @@ import javax.validation.constraints.Size;
 public class RegisterRequest {
 
 	@Column
-	@Pattern(regexp="\\w{4,8}", message="¾ÆÀÌµğ¸¦ 4~8ÀÚ·Î ÀÔ·ÂÇØÁÖ¼¼¿ä.")
+	@Pattern(regexp="\\w{4,8}", message="ì•„ì´ë””ë¥¼ 4~8ìë¡œ ì…ë ¥í•´ì£¼ì„¸ìš”.")
     private String id;
 	
 	@Column
-	@NotEmpty(message="ÀÌ¸ŞÀÏÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä.")
-	@Email(message="ÀÌ¸ŞÀÏ Çü½Ä¿¡ ¸ÂÃç ¿Ã¹Ù¸£°Ô ÀÔ·ÂÇØÁÖ¼¼¿ä.")
+	@NotEmpty(message="ì´ë©”ì¼ì„ ì…ë ¥í•´ì£¼ì„¸ìš”.")
+	@Email(message="ì´ë©”ì¼ í˜•ì‹ì´ ì•„ë‹™ë‹ˆë‹¤.")
     private String email;
 	
 	@Column
-	@Pattern(regexp="\\S{2,8}", message="ÀÌ¸§À» °ø¹é¾øÀÌ 2~6ÀÚ·Î ÀÔ·ÂÇØÁÖ¼¼¿ä.")
+	@Pattern(regexp="\\S{2,8}", message="ì´ë¥´ë¯•ã„¹ 2~8ìë¡œ ì…ë ¥í•´ì£¼ì„¸ìš”.")
     private String name;
 	
 	@Column
-	@Size(min=4, max=12, message="ºñ¹Ğ¹øÈ£¸¦ 4~12ÀÚ·Î ÀÔ·ÂÇØÁÖ¼¼¿ä.")
+	@Size(min=4, max=12, message="ë¹„ë°€ë²ˆí˜¸ë¥¼ 4~12ìë¡œ ì…ë ¥í•´ì£¼ì„¸ìš”.")
     private String password;
 	
 	@Column
-	@Size(min=4, max=12, message="ºñ¹Ğ¹øÈ£¸¦ 4~12ÀÚ·Î ÀÔ·ÂÇØÁÖ¼¼¿ä.")
+	@Size(min=4, max=12, message="ë¹„ë°€ë²ˆí˜¸ë¥¼ 4~12ìë¡œ ì…ë ¥í•´ì£¼ì„¸ìš”.")
     private String checkPassword;
     
-    //ºñ¹Ğ¹øÈ£ È®ÀÎ
+    //ï¿½ï¿½Ğ¹ï¿½È£ È®ï¿½ï¿½
     public boolean isPwEqualToCheckPw() {
         return password.equals(checkPassword);
     }

@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
 <div class="header">
 	<nav>
 		<ul class="nav nav-pills pull-right">
@@ -37,7 +36,7 @@
 	</nav>
 	
 	<h3 class="text-muted">
-		<b>When</b>We<b>Met</b>
+		<a href="/"><b>우리</b>언제<b>만날까?</b></a>
 	</h3>
 	
 	<div>
@@ -46,15 +45,15 @@
 				<c:when test="${empty authInfo }">
 					<div>
 						<ul class="nav nav-pills">
-							<%-- 탭:일정 만들기 --%>
+							<%-- 탭:모임 만들기 --%>
 							<li role="presentation"><a
-								href="/user/signin">새로운 일정 만들기</a>
+								href="/user/signin">새로운 모임 만들기</a>
 							</li>
-							<%-- 탭:드롭다운-일정관리 --%>
+							<%-- 탭:모임관리 --%>
 							<li role="presentation"><a
-								href="/user/signin">일정 관리</a>
+								href="/user/signin">모임 관리</a>
 							</li>
-							<%-- 드롭다운-받은초대 --%>
+							<%-- 탭:받은초대 --%>
 							<li role="presentation"><a
 								href="/user/signin">받은 초대</a>
 							</li>
@@ -64,25 +63,33 @@
 				<c:otherwise>
 					<div>
 						<ul class="nav nav-pills">
-							<%-- 탭:일정 만들기 --%>
+							<%-- 탭:모임 만들기 --%>
 							<li role="presentation">
-								<a href="/meeting/make">새로운 일정 만들기</a>
+								<a href="/meeting/make">새로운 모임 만들기</a>
 							</li>
-							<%-- 탭:드롭다운-일정관리 --%>
+							<%-- 탭:모임관리 --%>
 							<li role="presentation">
-								<a href="/schedule/list/${authInfo.id}">일정 관리</a>
+								<a href="#" id="meetingList">모임 관리</a>
 							</li>
-							<%-- 드롭다운-받은초대 --%>
+							<%-- 탭:받은초대 --%>
 							<li role="presentation">
 								<a href="/invitation/index">받은 초대</a>
 							</li>
 						</ul>
 					</div>
+					<form method="post" action="/meeting/list" id="postMeetingList">
+						<input type="hidden" name="userId" value="${authInfo.id }">
+					</form>
 				</c:otherwise>
 			</c:choose>
 		</c:catch>
 	</div>
-
-
-	
 </div>
+<script>
+	$(document).ready(function(){
+		$("#meetingList").on("click", function(e){
+			e.preventDefault();
+			$("#postMeetingList").submit();
+		});
+	});
+</script>

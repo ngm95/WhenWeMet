@@ -5,17 +5,17 @@
 <html>
 <head>
     <%@ include file="/WEB-INF/views/includes/00_head.jsp" %>
-    <title>Sign In | todyDev</title>
+    <title>로그인 | WhenWeMet</title>
 </head>
 <body class="signup-pages">
 
     <div class="signup-box">
         <div class="signup-logo">
-            <a href="#"><b>When</b>We<b>Met</b></a>
+            <b>When</b>We<b>Met</b>
         </div>
 
         <div class="signup-box-body">
-            <p class="box-msg">Please Sign In</p>
+            <p class="box-msg">로그인 양식</p>
 
             <form:form role="form" modelAttribute="loginCommand" action="${pageContext.request.contextPath }/user/signin" method="post">
                 <div class="form-group has-feedback">

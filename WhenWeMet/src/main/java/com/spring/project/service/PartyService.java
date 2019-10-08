@@ -38,4 +38,8 @@ public class PartyService {
 	public List<PartyDTO> listAll(String uid) throws Exception {
 		return partyDao.listAll(uid);
 	}
+	
+	public List<String> listByPid(int pid) throws Exception {
+		return partyDao.listByPid(pid);
+	}
 }

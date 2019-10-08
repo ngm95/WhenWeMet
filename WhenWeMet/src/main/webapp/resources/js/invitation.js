@@ -5,7 +5,16 @@ var ajaxManager = (function(){
 	
 	var getGroup = function(obj, callback) {
 		$.getJSON('/invitation/group/'+obj, callback);
-	}
+	};
+	
+	var invite = function(obj, callback, error) {
+		$.ajax({
+			url : "/invitation/invite/"+obj.mid+"/"+obj.sender+"/"+obj.receiver,
+			type : "post",
+			success : callback,
+			error : error
+		});
+	};
 	
 	var accept = function(obj, callback) {
 		$.ajax({
@@ -26,6 +35,7 @@ var ajaxManager = (function(){
 	return {
 		get : get,
 		getGroup : getGroup,
+		invite : invite,
 		accept : accept,
 		deny : deny
 	}

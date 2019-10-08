@@ -6,12 +6,18 @@ import javax.inject.Inject;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.spring.project.dao.InvitationDAO;
+import com.spring.project.dao.PartyDAO;
 import com.spring.project.dao.ScheduleDAO;
+import com.spring.project.dao.UserDAO;
 import com.spring.project.dto.ScheduleDTO;
+import com.spring.project.dto.UserDTO;
 import com.spring.project.service.InvitationService;
 import com.spring.project.service.PartyService;
 import com.spring.project.service.ScheduleService;
@@ -30,10 +36,15 @@ public class dbTest {
 	
 	@Inject
 	PartyService pvc;
+	
+	@Autowired
+	PartyDAO pdao;
+	
+	@Autowired
+	UserDAO udao;
 	@Test
 	public void insertTest() throws Exception {
-		isvc.invite(1, "user00", "admin");
-		isvc.invite(1, "user01", "admin");
-		isvc.invite(1, "user02", "admin");
+		UserDTO dto = udao.readById("0");
+		System.out.println(dto);
 	}
 }

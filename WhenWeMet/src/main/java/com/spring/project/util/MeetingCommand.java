@@ -6,7 +6,7 @@ import javax.validation.constraints.NotEmpty;
 @Entity
 public class MeetingCommand {
 	
-	@NotEmpty(message="»õ·Î¿î ÀÏÁ¤ ÀÌ¸§À» ÀÔ·ÂÇØÁÖ¼¼¿ä.")
+	@NotEmpty(message="ëª¨ì„ ì´ë¦„ì„ ì…ë ¥í•´ì£¼ì„¸ìš”.")
 	private String mname;
 	private String creator;
 	

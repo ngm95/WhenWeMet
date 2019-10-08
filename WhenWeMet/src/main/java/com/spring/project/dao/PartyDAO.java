@@ -35,4 +35,8 @@ public class PartyDAO {
 	public List<PartyDTO> listAll(String uid) throws Exception {
 		return sqlSession.selectList(NAMESPACE + ".listAll", uid);
 	}
+	
+	public List<String> listByPid(int pid) throws Exception {
+		return sqlSession.selectList(NAMESPACE + ".listByPid", pid);
+	}
 }
