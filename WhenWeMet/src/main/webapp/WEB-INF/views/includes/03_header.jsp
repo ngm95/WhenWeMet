@@ -18,7 +18,7 @@
 		<sec:authorize access="isAnonymous()">
 			<ul class="nav nav-pills pull-right">
 				<ul class="nav nav-pills pull-right">
-					<li role="presentation"><a href="/login/loginPage">로그인</a></li>
+					<li role="presentation"><a href="/user/loginPage">로그인</a></li>
 					<li role="presentation"><a href="/user/signup/step1">회원가입</a></li>
 				</ul>
 			</ul>
@@ -27,7 +27,7 @@
 			<ul class="nav nav-pills pull-right">
 				<ul class="nav nav-pills pull-right">
 					<li role="presentation"><a href="#"><%=name %>님, 반갑습니다.</a></li>
-					<li role="presentation"><a href="/login/logout">로그아웃</a></li>
+					<li role="presentation"><a href="/user/logout">로그아웃</a></li>
 				</ul>
 			</ul>
 		</sec:authorize>
@@ -37,31 +37,15 @@
 		<a href="/"><b>우리</b>언제<b>만날까?</b></a>
 	</h3>
 
-	<sec:authorize access="isAnonymous()">
-		<div>
-			<ul class="nav nav-pills">
-				<%-- 탭:일정 만들기 --%>
-				<li role="presentation"><a href="/login/loginPage">새로운 일정
-						만들기</a></li>
-				<%-- 탭:일정관리 --%>
-				<li role="presentation"><a href="/login/loginPage">일정 관리</a></li>
-				<%-- 탭:받은초대 --%>
-				<li role="presentation"><a href="/login/loginPage">받은 초대</a></li>
-			</ul>
-		</div>
-	</sec:authorize>
-	<sec:authorize access="isAuthenticated()">
-		<div>
-			<ul class="nav nav-pills">
-				<%-- 탭:일정 만들기 --%>
-				<li role="presentation"><a href="/meeting/make">새로운 일정 만들기</a>
-				</li>
-				<%-- 탭:일정관리 --%>
-				<li role="presentation"><a href="/schedule/list/${loginID}">일정
-						관리</a></li>
-				<%-- 탭:받은초대 --%>
-				<li role="presentation"><a href="/invitation/index">받은 초대</a></li>
-			</ul>
-		</div>
-	</sec:authorize>
+	<div>
+		<ul class="nav nav-pills">
+			<%-- 탭:일정 만들기 --%>
+			<li role="presentation"><a href="/meeting/make">새로운 일정 만들기</a></li>
+			<%-- 탭:일정관리 --%>
+			<li role="presentation"><a href="/schedule/list/${loginID}">일정
+					관리</a></li>
+			<%-- 탭:받은초대 --%>
+			<li role="presentation"><a href="/invitation/index">받은 초대</a></li>
+		</ul>
+	</div>
 </div>

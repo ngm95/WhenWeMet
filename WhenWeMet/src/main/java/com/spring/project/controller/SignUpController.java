@@ -24,44 +24,42 @@ public class SignUpController {
 	private SignUpService ser;
 	
 	/**
-	 * index.jsp�뿉�꽌 �쉶�썝媛��엯 踰꾪듉�쓣 �늻瑜대㈃ �룞�옉.
-	 * /user/signup/step1.jsp�� 留ㅽ븨�븳�떎.
-	 * @return /user/signup/step1.jsp濡� 留ㅽ븨�릺�뒗 ModelAndView
+	 * index.jsp에서 회원가입 버튼을 누르면 동작.
+	 * /user/signup/step1.jsp와 매핑한다.
+	 * @return /user/signup/step1.jsp로 매핑되는 ModelAndView
 	 */
 	@RequestMapping(value="signup/step1")
 	public String step1() throws Exception {
-		System.out.println("step1");
-		return "user/signup/step1";
+		return "/user/signup/step1";
 	}
 	
 	/**
-	 * step1.jsp�뿉�꽌 �떎�쓬 踰꾪듉�쓣 �늻瑜대㈃ �룞�옉.
-	 * �솗�씤 踰꾪듉�쓣 �닃���뒗吏� 寃��궗�븯怨� �늻瑜댁� �븡�븯�쑝硫� �씠�쟾 �떒怨꾨줈,
-	 * �닃���쑝硫� /user/signup/step2.jsp濡� 留ㅽ븨�븳�떎.
+	 * step1.jsp에서 다음 버튼을 누르면 동작.
+	 * 확인 버튼을 눌렀는지 검사하고 누르지 않았으면 이전 단계로,
+	 * 눌렀으면 /user/signup/step2.jsp로 매핑한다.
 	 * @param agree
-	 * @return /user/signup/step2.jsp濡� 留ㅽ븨�릺�뒗 ModelAndView
+	 * @return /user/signup/step2.jsp로 매핑되는 ModelAndView
 	 */
-	@RequestMapping(value="signup/step2", method=RequestMethod.POST)
+	@RequestMapping(value="signup/step2", method=RequestMethod.GET)
 	public ModelAndView step2(@RequestParam(value="agree", defaultValue="false") Boolean agree) throws Exception {
-		
 		ModelAndView mv = new ModelAndView();
-		
 		if(!agree) {
 			mv.setViewName("/user/signup/step1");
 			return mv;
 		}
+		
 		mv.setViewName("/user/signup/step2");
 		mv.addObject("registerRequest", new RegisterRequest());
 		return mv;
 	}
 	
 	/**
-	 * step2.jsp�뿉�꽌 �솗�씤 踰꾪듉�쓣 �늻瑜대㈃ �룞�옉.
-	 * �엯�젰�븳 �궡�슜�씠 �씠�긽 �뾾�뒗吏� �솗�씤�븯怨� �씠�긽�씠 �엳�쑝硫� �씠�쟾 �떒怨꾨줈,
-	 * �씠�긽�씠 �뾾�떎硫� �뜲�씠�꽣踰좎씠�뒪�뿉 �깉濡쒖슫 �궗�슜�옄瑜� �벑濡앺븳 �뮘 '/'濡� 由щ떎�씠�젆�듃�븳�떎.
-	 * @param regReq 濡쒓렇�씤�뿉 �븘�슂�븳 �젙蹂�
-	 * @param bindingResult RegisterRequest媛� �쑀�슚�븳吏� 寃��궗
-	 * @return '/'濡� 由щ떎�씠�젆�듃
+	 * step2.jsp에서 확인 버튼을 누르면 동작.
+	 * 입력한 내용이 이상 없는지 확인하고 이상이 있으면 이전 단계로,
+	 * 이상이 없다면 데이터베이스에 새로운 사용자를 등록한 뒤 '/'로 리다이렉트한다.
+	 * @param regReq 로그인에 필요한 정보
+	 * @param bindingResult RegisterRequest가 유효한지 검사
+	 * @return '/'로 리다이렉트
 	 */
     @RequestMapping(value="signup/step3", method=RequestMethod.POST)
     public ModelAndView step3(@Valid RegisterRequest regReq, BindingResult bindingResult) throws Exception{
@@ -75,7 +73,7 @@ public class SignUpController {
         
         boolean check = regReq.isPwEqualToCheckPw();
         if(!check) {
-            bindingResult.rejectValue("checkPassword", "noMatch", "�뙣�뒪�썙�뱶媛� �씪移섑븯吏� �븡�뒿�땲�떎.");
+            bindingResult.rejectValue("checkPassword", "noMatch", "패스워드가 일치하지 않습니다.");
             mv.setViewName("/user/signup/step2");
             return mv;
         }
@@ -84,12 +82,12 @@ public class SignUpController {
         	ser.register(regReq);
             
         } catch (AlreadyExistingEmailException e) {
-        	bindingResult.rejectValue("email", "duplicate", "以묐났�맂 �씠硫붿씪�엯�땲�떎.");
+        	bindingResult.rejectValue("email", "duplicate", "중복된 이메일입니다.");
             mv.setViewName("/user/signup/step2");
             return mv;
             
         } catch (AlreadyExistingIdException e) {
-        	bindingResult.rejectValue("id", "duplicate", "以묐났�맂 �븘�씠�뵒�엯�땲�떎.");
+        	bindingResult.rejectValue("id", "duplicate", "중복된 아이디입니다.");
             mv.setViewName("/user/signup/step2");
             return mv;
         }

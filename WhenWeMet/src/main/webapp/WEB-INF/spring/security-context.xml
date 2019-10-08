@@ -1,61 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		xmlns:security="http://www.springframework.org/schema/security"
-		xmlns:context="http://www.springframework.org/schema/context"
-		xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.1.xsd
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.1.xsd
 							http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 							http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
-							
-		<context:component-scan base-package="com.spring.project"/>
-        
-		<security:http auto-config="true" use-expressions="true">
-		    <security:intercept-url pattern="/user/signup/**" access="permitAll"/>
-		    <security:intercept-url pattern="/**" access="permitAll"/>
-		    
-		    <security:form-login
-		    	username-parameter="loginID"
-		    	password-parameter="loginPW"
-		    	login-processing-url="/login/loginProcess"
-		    	login-page="/user/loginPage"
-		    	default-target-url="/"
-		    	authentication-failure-handler-ref="loginFailureHandler"
-		    	authentication-success-handler-ref="loginSuccessHandler"
-		    />
-		    
-		    <security:access-denied-handler
-		    	error-page="/access_denied_page"
-		    />
-		    
-		    <security:logout
-		    	logout-url="/logout"
-		    	invalidate-session="true"
-		    	logout-success-url="/"
-		    />
-		    
-		</security:http>
-		
-        <security:authentication-manager>
-        	<security:authentication-provider ref="userAuthProvider"/>
-        	<security:authentication-provider user-service-ref="userService">
-        	</security:authentication-provider>
-        </security:authentication-manager>
-        
-        <bean id="userService" class="com.spring.project.security.CustomUserDetailsService"/>
-        <bean id="userAuthProvider" class="com.spring.project.security.CustomAuthenticationProvider"/>
-        
-        <bean id="loginFailureHandler" class="com.spring.project.security.handler.LoginFailureHandler">
-            <property name="loginidname" value="loginID"/>
-        	<property name="loginpwdname" value="loginPW"/>
-        	<property name="errormsgname" value="ERRORMSG"/>
-        	<property name="defaultFailureUrl" value="/login/loginPage"/>
-        </bean>
-        <bean id="loginSuccessHandler" class="com.spring.project.security.handler.LoginSuccessHandler">
-        	<property name="loginidname" value="loginID"/>
-        	<property name="defaultUrl" value="/"/>
-        </bean>
 
-	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+	<context:component-scan
+		base-package="com.spring.project" />
+
+	<security:http auto-config="true" use-expressions="true">
+		<security:intercept-url access="hasAnyRole('ROLE_MEMBER','ROLE_ADMIN')" pattern="/invitation/**"/>
+		<security:intercept-url access="hasAnyRole('ROLE_MEMBER','ROLE_ADMIN')" pattern="/member/**"/>
+		<security:intercept-url access="hasAnyRole('ROLE_MEMBER','ROLE_ADMIN')" pattern="/schedule/**"/>
+		<security:intercept-url access="hasAnyRole('ROLE_MEMBER','ROLE_ADMIN')" pattern="/user/find**"/>
+		<security:intercept-url access="permitAll" pattern="/user/**"/>
+		<security:intercept-url access="permitAll" pattern="/**"/>
+		
+		<security:form-login 
+			username-parameter="loginID"
+			password-parameter="loginPW"
+			login-processing-url="/user/loginProcess"
+			login-page="/user/loginPage" 
+			default-target-url="/"
+			authentication-failure-handler-ref="loginFailureHandler"
+			authentication-success-handler-ref="loginSuccessHandler" />
+
+		<security:access-denied-handler
+			error-page="/access_denied_page" />
+
+		<security:logout delete-cookies="true" logout-success-url="/" logout-url="/log/logout" invalidate-session="true"/>
+
+	</security:http>
+
+	<security:authentication-manager>
+		<security:authentication-provider
+			ref="userAuthProvider" />
+		<security:authentication-provider
+			user-service-ref="userService">
+		</security:authentication-provider>
+	</security:authentication-manager>
+
+	<bean id="userService"
+		class="com.spring.project.security.CustomUserDetailsService" />
+	<bean id="userAuthProvider"
+		class="com.spring.project.security.CustomAuthenticationProvider" />
+
+	<bean id="loginFailureHandler"
+		class="com.spring.project.security.handler.LoginFailureHandler">
+		<property name="loginidname" value="loginID" />
+		<property name="loginpwdname" value="loginPW" />
+		<property name="errormsgname" value="ERRORMSG" />
+		<property name="defaultFailureUrl" value="/user/loginPage" />
+	</bean>
+	<bean id="loginSuccessHandler"
+		class="com.spring.project.security.handler.LoginSuccessHandler">
+		<property name="loginidname" value="loginID" />
+		<property name="defaultUrl" value="/" />
+	</bean>
+
+	<bean id="messageSource"
+		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
 		<property name="basenames">
 			<list>
 				<value>/WEB-INF/message/security_message</value>
@@ -64,11 +70,13 @@
 		<property name="defaultEncoding" value="UTF-8" />
 		<property name="cacheSeconds" value="5" />
 	</bean>
-	<bean id="messageSourceAccessor" class="org.springframework.context.support.MessageSourceAccessor">
+	<bean id="messageSourceAccessor"
+		class="org.springframework.context.support.MessageSourceAccessor">
 		<constructor-arg ref="messageSource" />
 	</bean>
 	<bean id="message" class="com.spring.project.util.MessageUtils">
-		<property name="messageSourceAccessor" ref="messageSourceAccessor" />
+		<property name="messageSourceAccessor"
+			ref="messageSourceAccessor" />
 	</bean>
-    
+
 </beans>

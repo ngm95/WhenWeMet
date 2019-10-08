@@ -18,7 +18,7 @@
 		<div class="signup-box-body">
 			<p class="box-msg">로그인 양식</p>
 
-			<form class="px-4 py-3" action='<c:url value="/login/loginProcess"/>' method="post">
+			<form class="px-4 py-3" action='<c:url value="/user/loginProcess"/>' method="post">
 				<div class="form-group">
 					<label for="exampleDropdownFormEmail1">아이디</label> 
 					<input type="text" class="form-control" name="loginID" placeholder="ID" value="${loginId }">
@@ -44,7 +44,7 @@
 			</form>
 			<div class="dropdown-divider"></div>
 			<a class="dropdown-item" href="/user/signup">회원가입하기</a> <a
-				class="dropdown-item" href="/user/findPassword">비밀번호 찾기</a>
+				class="dropdown-item" href="/user/findPW">비밀번호 찾기</a>
 		</div>
 
 	</div>

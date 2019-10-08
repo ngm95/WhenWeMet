@@ -17,9 +17,10 @@
 			</div>
 		</sec:authorize>
 		<sec:authorize access="isAuthenticated()">
-			<%@ include file="/WEB-INF/views/meeting/makeForm.jsp" %>
+			
 		</sec:authorize>
 		<%@ include file="/WEB-INF/views/includes/09_footer.jsp"%>
+		
 	</div>
 
 </body>

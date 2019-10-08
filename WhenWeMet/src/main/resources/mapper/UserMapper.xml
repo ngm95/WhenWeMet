@@ -37,7 +37,7 @@
               userid,
               password,
               uname,
-              role
+              authority
           FROM
               USER
           WHERE

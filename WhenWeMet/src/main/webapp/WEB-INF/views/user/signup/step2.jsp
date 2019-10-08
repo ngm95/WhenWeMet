@@ -17,7 +17,7 @@
         <div class="signup-box-body">
             <p class="box-msg">Register a new membership</p>
 
-            <form:form role="form" modelAttribute="registerRequest" action="${pageContext.request.contextPath }/user/signup/step3" method="post">
+            <form:form role="form" modelAttribute="registerRequest" action="${pageContext.request.contextPath }/login/signup/step3" method="post">
                 <div class="form-group has-feedback">
                     <form:input type="text" class="form-control" placeholder="ID" path="id"/>
                     <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
@@ -55,7 +55,7 @@
                 <p>- OR -</p>
             </div>
 
-            <a href="login.html" class="text-center">I already have a membership</a>
+            <p>이미 회원가입 하셨나요?</p><a href="login.jsp" class="text-center">로그인하기</a>
         </div>
     </div>
 
