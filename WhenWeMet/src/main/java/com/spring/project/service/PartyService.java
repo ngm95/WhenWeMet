@@ -19,27 +19,27 @@ public class PartyService {
 		this.partyDao = partyDao;
 	}
 	
-	public void create(PartyDTO partyDto) throws Exception {
+	public void create(PartyDTO partyDto) {
 		partyDao.create(partyDto);
 	}
 	
-	public PartyDTO read(PartyDTO partyDto) throws Exception {
+	public PartyDTO read(PartyDTO partyDto) {
 		return partyDao.read(partyDto);
 	}
 	
-	public void update(PartyDTO partyDto) throws Exception {
+	public void update(PartyDTO partyDto) {
 		partyDao.update(partyDto);
 	}
 	
-	public void delete(PartyDTO partyDto) throws Exception {
+	public void delete(PartyDTO partyDto) {
 		partyDao.delete(partyDto);
 	}
 	
-	public List<PartyDTO> listAll(String uid) throws Exception {
+	public List<PartyDTO> listAll(String uid) {
 		return partyDao.listAll(uid);
 	}
 	
-	public List<String> listByPid(int pid) throws Exception {
+	public List<String> listByPid(int pid) {
 		return partyDao.listByPid(pid);
 	}
 }

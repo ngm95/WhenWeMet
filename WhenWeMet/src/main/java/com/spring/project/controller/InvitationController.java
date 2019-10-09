@@ -26,7 +26,6 @@ import lombok.extern.log4j.Log4j;
 
 @RestController
 @RequestMapping("/invitation")
-@Log4j
 public class InvitationController {
 	@Autowired
 	InvitationService svc;

@@ -17,7 +17,7 @@
         <div class="signup-box-body">
             <p class="box-msg">Register a new membership</p>
 
-            <form:form role="form" modelAttribute="registerRequest" action="${pageContext.request.contextPath }/login/signup/step3" method="post">
+            <form:form role="form" modelAttribute="registerRequest" action="${pageContext.request.contextPath }/user/signup/step3" method="post">
                 <div class="form-group has-feedback">
                     <form:input type="text" class="form-control" placeholder="ID" path="id"/>
                     <span class="glyphicon glyphicon-envelope form-control-feedback"></span>

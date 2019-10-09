@@ -5,7 +5,7 @@ public class UserDTO {
 	private String password;
 	private String uname;
 	private String email;
-	private Integer role;
+	private String role;
 	public boolean matchPassword(String password) {
 	    	return this.password.equals(password);
 	}
@@ -33,10 +33,10 @@ public class UserDTO {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public Integer getRole() {
+	public String getRole() {
 		return role;
 	}
-	public void setRole(Integer role) {
+	public void setRole(String role) {
 		this.role = role;
 	}
 	public String toString() {
