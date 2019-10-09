@@ -11,10 +11,10 @@
 		base-package="com.spring.project" />
 
 	<security:http auto-config="true" use-expressions="true">
-		<security:intercept-url access="hasAnyRole('ROLE_MEMBER','ROLE_ADMIN')" pattern="/invitation/**"/>
-		<security:intercept-url access="hasAnyRole('ROLE_MEMBER','ROLE_ADMIN')" pattern="/member/**"/>
-		<security:intercept-url access="hasAnyRole('ROLE_MEMBER','ROLE_ADMIN')" pattern="/schedule/**"/>
-		<security:intercept-url access="hasAnyRole('ROLE_MEMBER','ROLE_ADMIN')" pattern="/user/find**"/>
+		<security:intercept-url access="hasAnyRole('ROLE_USER','ROLE_ADMIN')" pattern="/invitation/**"/>
+		<security:intercept-url access="hasAnyRole('ROLE_USER','ROLE_ADMIN')" pattern="/member/**"/>
+		<security:intercept-url access="hasAnyRole('ROLE_USER','ROLE_ADMIN')" pattern="/schedule/**"/>
+		<security:intercept-url access="hasAnyRole('ROLE_USER','ROLE_ADMIN')" pattern="/user/find**"/>
 		<security:intercept-url access="permitAll" pattern="/user/**"/>
 		<security:intercept-url access="permitAll" pattern="/**"/>
 		
