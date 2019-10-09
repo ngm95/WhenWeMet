@@ -10,27 +10,27 @@ import org.springframework.security.core.userdetails.UserDetails;
 @SuppressWarnings("serial")
 public class CustomUserDetails implements UserDetails {
 	
-	private String USERID;
-	private String PASSWORD;
-	private String AUTHORITY;
-	private boolean ENABLED;
-	private String NAME;
+	private String userid;
+	private String password;
+	private String authority;
+	private boolean enabled;
+	private String name;
 	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		ArrayList<GrantedAuthority> auth = new ArrayList<GrantedAuthority>();
-		auth.add(new SimpleGrantedAuthority(AUTHORITY));
+		auth.add(new SimpleGrantedAuthority(authority));
 		return auth;
 	}
 
 	@Override
 	public String getPassword() {
-		return PASSWORD;
+		return password;
 	}
 
 	@Override
 	public String getUsername() {
-		return USERID;
+		return userid;
 	}
 
 	@Override
@@ -50,15 +50,15 @@ public class CustomUserDetails implements UserDetails {
 
 	@Override
 	public boolean isEnabled() {
-		return ENABLED;
+		return enabled;
 	}
 	
 	public String getNAME() {
-		return NAME;
+		return name;
 	}
 
 	public void setNAME(String name) {
-		NAME = name;
+		this.name = name;
 	}
 
 }

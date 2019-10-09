@@ -13,13 +13,12 @@
 	</delete>
 	<select id="getInvitationList" resultType="com.spring.project.dto.InvitationDTO">
 		<![CDATA[
-			select i.* 
-			from invitation as i
-			where not exists 	(select a.* 
-								from invitation a, invitation b 
-								where a.sender = b.receiver and b.sender = a.receiver 
-								and i.sender = a.sender and i.receiver = a.receiver) 
-								and i.receiver = #{userid}
+			select * from invitation i 
+			where not exists 
+			(select * 
+			from invitation a, invitation b
+			where a.sender = b.receiver and a.receiver = b.sender and a.mid = b.mid
+			and a.sender = i.sender and a.receiver = i.receiver and a.mid = i.mid) and i.receiver = #{userid}
 		]]>
 	</select>
 	<select id="getUserListByMid" resultType="String">

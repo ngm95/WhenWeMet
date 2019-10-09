@@ -30,6 +30,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 	
 	@Resource(name="userSer")
 	private UserService userSer;
+	
 
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
@@ -39,11 +40,10 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 		
 		userSer.resetFailureCnt(username);
 		
-		//�뿉�윭 �꽭�뀡 吏��슦湲�
 		clearAuthenticationAttributes(request);
 		
-		//Redirect URL �옉�뾽
 		resultRedirectStrategy(request, response, authentication);
+		
 		
 	}
 	

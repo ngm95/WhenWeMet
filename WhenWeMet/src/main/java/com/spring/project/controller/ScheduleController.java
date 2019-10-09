@@ -26,7 +26,6 @@ public class ScheduleController {
 	@Autowired
 	ScheduleService svc;
 	
-	@Secured({"ROLE_USER", "ROLE_ADMIN"})
 	@GetMapping("/list/{userId}")
 	public ResponseEntity<List<ScheduleDTO>> getSchedule(@PathVariable("userId") String userId) {
 		return new ResponseEntity<List<ScheduleDTO>>(svc.getSchedule(userId), HttpStatus.OK);

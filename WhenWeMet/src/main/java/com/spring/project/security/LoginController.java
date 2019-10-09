@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(value="/user")
 public class LoginController {
 	
-	@RequestMapping(value="/loginPage")
+	@RequestMapping(value="/login/loginPage")
 	public String loginPage() throws Exception {
-		return "/user/loginPage";
+		return "/user/login/loginPage";
 	}
 	
 	@RequestMapping(value="logout")

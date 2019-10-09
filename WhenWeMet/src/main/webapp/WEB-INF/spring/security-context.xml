@@ -22,7 +22,7 @@
 			username-parameter="loginID"
 			password-parameter="loginPW"
 			login-processing-url="/user/loginProcess"
-			login-page="/user/loginPage" 
+			login-page="/user/login/loginPage" 
 			default-target-url="/"
 			authentication-failure-handler-ref="loginFailureHandler"
 			authentication-success-handler-ref="loginSuccessHandler" />

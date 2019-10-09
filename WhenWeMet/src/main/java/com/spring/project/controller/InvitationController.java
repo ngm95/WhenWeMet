@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,16 +13,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.spring.project.dao.UserDAO;
 import com.spring.project.dto.InvitationDTO;
 import com.spring.project.dto.MeetingDTO;
 import com.spring.project.dto.PartyDTO;
+import com.spring.project.dto.UserDTO;
 import com.spring.project.service.InvitationService;
 import com.spring.project.service.MeetingService;
 import com.spring.project.service.PartyService;
 
 @RestController
 @RequestMapping("/invitation")
-@Secured({"ROLE_USER", "ROLE_ADMIN"})
 public class InvitationController {
 	@Autowired
 	InvitationService svc;
@@ -34,6 +34,9 @@ public class InvitationController {
 	@Autowired
 	MeetingService msvc;
 	
+	@Autowired
+	UserDAO udao;
+	
 	@GetMapping("/list/{userId}")
 	public ResponseEntity<List<InvitationDTO>> getList(@PathVariable("userId") String userId) {
 		List<InvitationDTO> list = svc.getInvitationList(userId);
@@ -42,8 +45,13 @@ public class InvitationController {
 	
 	@PostMapping("/invite/{mid}/{userId}/{receiver}") 
 	public ResponseEntity<Void> invite(@PathVariable("mid") int mid, @PathVariable("userId") String userId, @PathVariable("receiver") String receiver) throws Exception {
-		svc.invite(mid, userId, receiver);
-		return new ResponseEntity<>(HttpStatus.OK);
+		UserDTO dto = udao.readById(receiver);
+		if(dto == null)
+			return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+		else {
+			svc.invite(mid, userId, receiver);
+			return new ResponseEntity<>(HttpStatus.OK);
+		}
 	}
 	
 	@PostMapping("/accept/{mid}/{userId}/{sender}")

@@ -2,28 +2,18 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<%@ page import="org.springframework.security.core.context.SecurityContextHolder" %>
-<%@ page import="org.springframework.security.core.Authentication" %>
-<%
-	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-	Object principal = auth.getPrincipal();
-	
-	String name = "";
-	if(principal != null) {
-		name = auth.getName();
-	}
-%>
+<%@ include file="/WEB-INF/views/includes/00_head.jsp"%>
     <div class="signup-box">
 		<div class="signup-logo">
             <b>새로운 일정 만들기</b>
         </div>
-        
+    <sec:authentication property="principal" var="userid"/>
         <div class="signup-box-body">
 
             <form:form role="form" modelAttribute="meetingCommand" action="${pageContext.request.contextPath }/meeting/makeProcess" method="POST">
                 
                 <div>
-                	<form:input type="hidden" path="creator" value="<sec:authentication property="principal.userid"/>"/>
+                	<form:input type="hidden" path="creator" value="${authInfo.id}"/>
                 </div>
                  
                 <div class="row">
