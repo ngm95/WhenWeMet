@@ -15,7 +15,6 @@
 		name = auth.getName();
 	}
 %>
-
 <div class="header">
 	<nav>
 		<sec:authorize access="isAnonymous()">
@@ -50,6 +49,7 @@
 			<%-- 탭:받은초대 --%>
 			<li role="presentation"><a href="/invitation/index">받은 초대</a></li>
 		</ul>
+
 	</div>
 
 	<form method="post" action="/meeting/list" id="postMeetingList">

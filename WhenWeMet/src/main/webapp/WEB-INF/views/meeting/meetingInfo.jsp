@@ -11,8 +11,8 @@
 		<%@ include file="/WEB-INF/views/includes/03_header.jsp"%>
 
 		<center>
-			<h1>${meeting.mname}</h1>
-			<h2>by ${meeting.creator}</h2>
+			<h1>${meeting.mname }</h1>
+			<h2>by ${meeting.creator }</h2>
 
 			<button class="btn btn-success">일정 등록</button>
 			<br> <br>

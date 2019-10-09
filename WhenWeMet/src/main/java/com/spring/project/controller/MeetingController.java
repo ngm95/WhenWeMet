@@ -74,12 +74,16 @@ public class MeetingController {
 		
 		try {
 			meetingSer.create(meRe);
+			PartyDTO partyDTO = new PartyDTO();
+			int pid = meetingSer.readByName(meetingCommand.getMname()).getMid();
+			partyDTO.setPid(pid);
+			partyDTO.setUid(meetingCommand.getCreator());
+			psvc.create(partyDTO);
 		} catch(AlreadyExistingIdException e) {
 			bindingResult.rejectValue("mname", "duplicate", "중복되는 이름입니다.");
 			mv.setViewName("/meeting/makeForm");
 			return mv;
 		} 
-		
 		mv.setViewName("redirect:/");
 		return mv;
 	}
