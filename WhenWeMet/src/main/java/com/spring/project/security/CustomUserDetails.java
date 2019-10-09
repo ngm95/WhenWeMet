@@ -12,14 +12,14 @@ public class CustomUserDetails implements UserDetails {
 	
 	private String userid;
 	private String password;
-	private String authority;
+	private String role;
 	private boolean enabled;
 	private String name;
 	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		ArrayList<GrantedAuthority> auth = new ArrayList<GrantedAuthority>();
-		auth.add(new SimpleGrantedAuthority(authority));
+		auth.add(new SimpleGrantedAuthority(role));
 		return auth;
 	}
 

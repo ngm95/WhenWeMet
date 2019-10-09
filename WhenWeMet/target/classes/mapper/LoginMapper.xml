@@ -5,7 +5,7 @@
  	<select id="selectUserById" resultType="com.spring.project.security.CustomUserDetails">
 		<![CDATA[
 			SELECT
-				userid, password, authority, enabled, uname
+				userid, password, role, enabled, uname
 			FROM
 				user
 			WHERE
