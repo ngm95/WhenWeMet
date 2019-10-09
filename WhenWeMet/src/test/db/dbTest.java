@@ -44,7 +44,11 @@ public class dbTest {
 	UserDAO udao;
 	@Test
 	public void insertTest() throws Exception {
-		UserDTO dto = udao.readById("0");
-		System.out.println(dto);
+		List<String> userList = new LinkedList<>();
+		userList.add("admin");
+		userList.add("user00");
+		userList.add("user01");
+		userList.add("user02");
+		svc.getAvailableTime(userList, 6).forEach(result -> System.out.println(result));
 	}
 }
