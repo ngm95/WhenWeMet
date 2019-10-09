@@ -30,16 +30,16 @@ public class ScheduleService {
 		mapper.delete(sid);
 	}
 	
-	public List<ScheduleDTO> getSchedule(String userid) {
-		return mapper.select(userid);
+	public List<ScheduleDTO> getScheduleByUser(String userid, int mid) {
+		return mapper.selectByUser(userid, mid);
 	}
 	
-	public List<ScheduleDTO> getScheduleByUserList(List<String> userList) {
-		return mapper.selectByManyUser(userList);
+	public List<ScheduleDTO> getScheduleByUserList(List<String> userList, int mid) {
+		return mapper.selectByManyUser(userList, mid);
 	}
 	
 	//같은 미팅 그룹에 있는 사용자들 간에 서로 만날 수 있는 시간을 찾아줌
-	public List<TimeDTO> getAvailableTime(List<String> userList) {
+	public List<TimeDTO> getAvailableTime(List<String> userList, int mid) {
 		List<TimeDTO> result = new ArrayList<TimeDTO>();
 		List<TimeDTO> timeList = new ArrayList<TimeDTO>();
 		Calendar c = Calendar.getInstance();
@@ -47,7 +47,7 @@ public class ScheduleService {
 		Date minDate = c.getTime();
 		c.setTimeInMillis(Long.MIN_VALUE);
 		Date maxDate = c.getTime();
-		getScheduleByUserList(userList).forEach(res -> {
+		getScheduleByUserList(userList, mid).forEach(res -> {
 			TimeDTO dto = new TimeDTO();
 			dto.setStart_time(res.getStart_time());
 			dto.setEnd_time(res.getEnd_time());

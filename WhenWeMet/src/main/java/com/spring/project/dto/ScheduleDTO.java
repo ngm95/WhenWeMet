@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class ScheduleDTO {
 	private int sid;
-	private String sname;
+	private int mid;
 	private Date start_time;
 	private Date end_time;
 	private String userid;

@@ -6,17 +6,20 @@
 <head>
 <%@ include file="/WEB-INF/views/includes/00_head.jsp"%>
 </head>
-<body class="main-pages">
+<body class="main-pages" style="height: 100%">
 	<div class="container">
 		<%@ include file="/WEB-INF/views/includes/03_header.jsp"%>
 
 		<center>
 			<h1>${meeting.mname }</h1>
 			<h2>by ${meeting.creator }</h2>
-
-			<button class="btn btn-success">일정 등록</button>
-			<br> <br>
-			<button class="btn btn-info" data-toggle="modal" data-target="#inviteModal">초대 하기</button>
+			<form method="post" action="/schedule/index">
+				<input type="hidden" name="mid" value="${meeting.mid }">
+				<button type="submit" class="btn btn-success">일정 등록</button>
+			</form>
+			<br>
+			<button class="btn btn-info" data-toggle="modal"
+				data-target="#inviteModal">초대 하기</button>
 		</center>
 		<br>
 		<hr>
@@ -26,7 +29,9 @@
 		</div>
 		<div class="container">
 			<h3>가능한 시간 목록</h3>
-			<div class="panel panel-default" id="timeList"></div>
+			<div class="panel panel-default" id="timeList">
+				
+			</div>
 		</div>
 
 		<%@ include file="/WEB-INF/views/includes/09_footer.jsp"%>
@@ -39,7 +44,24 @@
 					<h4 class="modal-title">초대하기</h4>
 				</div>
 				<div class="modal-body">
-					아이디: <input type="text" id="receiver"> <button id="invite">초대</button>
+					아이디: <input type="text" id="receiver">
+					<button id="invite">초대</button>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="timeModal" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">등록한 시간</h4>
+				</div>
+				<div class="modal-body" id="myTime">
+					
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -51,38 +73,106 @@
 	<input type="hidden" id="userId" value="${authInfo.id }">
 </body>
 <script src="/resources/js/invitation.js"></script>
+<script src="/resources/js/proto.js"></script>
 <script>
+	var tList = null;
+	var userList = null;
 	function printUserList(list) {
-		var list = list;
-		var str = "";
-		var len = list.length;
+		var userList = list;
+		var str = "";	
+		var len = userList.length;
 		for (var i = 0; i < len; i++) {
-			var user = list[i];
-			str += "<div class='panel-body'>" + user + "</div>";
+			var user = userList[i];
+			str += "<div class='panel-body userInfo' id='"+user+"' data-toggle='modal' data-target='#timeModal'>" + user + "</div>";		
 		}
 		$("#usrList").html(str);
 	}
+	function printSchedule(list) {
+		var list = list;
+		var len = list.length;
+		var str = "";
+		if(len == 0)
+			$("#myTime").html("<p>등록한 시간이 없습니다.</p>");
+		else {
+			for(var i = 0; i < len;	i++) {
+				var schedule = list[i];
+				var sid = schedule.sid;
+				var startTime = new Date(schedule.start_time).format("yyyy년 MM월 dd일 a/p hh시 mm분");
+				var endTime = new Date(schedule.end_time).format("yyyy년 MM월 dd일 a/p hh시 mm분");
+				str += "<div class='panel panel-default'><div class='panel-body'>"+startTime+"  ~~  "+endTime+"</div></div>";
+			}
+			$("#myTime").html(str);
+		}
+	}
 	
+	function printAvailableTime(list) {
+		var mid = $("#mid").val();
+		var obj = {
+				"mid" : mid,
+				"userList" : list
+		};
+		$.ajax({
+			url : "/schedule/availableList",
+			type : "get",
+			data : obj,
+			contentType : "application/json; charset=utf-8",
+			success : function(list) {
+				var list = list;
+				var len = list.length;
+				var str = "";
+				for(var i = 0; i < len; i++) {
+					var date = list[i];
+					var start = new Date(date.start_time).format("yyyy년 MM월 dd일 a/p hh시 mm분");
+					var end = new Date(date.end_time).format("yyyy년 MM월 dd일 a/p hh시 mm분");
+					str += "<div class='panel panel-default'><div class='panel-body'>시작 시간: "+start+" <br>종료 시간: "+end+"</div></div>";
+				}
+				$("#timeList").html(str);
+			},
+			async : false
+		});
+	}
+
 	function successInvite() {
 		alert("초대가 완료 되었습니다.");
 	}
-	
+
 	function errorInvite() {
 		alert("사용자를 찾을 수 없거나 이미 초대 되었습니다.");
 	}
 	$(document).ready(function() {
 		var mid = $("#mid").val();
 		$.getJSON('/meeting/' + mid, printUserList);
+		$.getJSON('/meeting/' + mid, printAvailableTime);
 		$("#invite").on("click", function() {
 			var sender = $("#userId").val();
 			var receiver = $("#receiver").val();
+			if (receiver == "")
+				e.preventDefault();
 			var obj = {
-					mid:mid,
-					sender:sender,
-					receiver:receiver
+				mid : mid,
+				sender : sender,
+				receiver : receiver
 			};
 			ajaxManager.invite(obj, successInvite, errorInvite);
 		});
+	});
+	
+	$(document).on("mouseover",".userInfo",function(){
+		$(this).css('cursor','pointer');
+	});
+	
+	$(document).on("click",".userInfo",function(){
+		var userId = $(this).attr('id');
+		var mid = $("#mid").val();
+		$.ajax({
+			url : "/schedule/list/"+userId+"/"+mid,
+			type : "get",
+			success : function(result){
+				tList = result;
+			},	
+			async : false 
+		});
+		printSchedule(tList);
 	});
 </script>
 </html>

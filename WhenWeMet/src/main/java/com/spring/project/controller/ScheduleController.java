@@ -25,9 +25,9 @@ public class ScheduleController {
 	@Autowired
 	ScheduleService svc;
 	
-	@GetMapping("/list/{userId}")
-	public ResponseEntity<List<ScheduleDTO>> getSchedule(@PathVariable("userId") String userId) {
-		return new ResponseEntity<List<ScheduleDTO>>(svc.getSchedule(userId), HttpStatus.OK);
+	@GetMapping("/list/{userId}/{mid}")
+	public ResponseEntity<List<ScheduleDTO>> getSchedule(@PathVariable("userId") String userId, @PathVariable("mid") int mid) {
+		return new ResponseEntity<List<ScheduleDTO>>(svc.getScheduleByUser(userId, mid), HttpStatus.OK);
 	}
 	
 	@PostMapping("/add")
@@ -49,7 +49,7 @@ public class ScheduleController {
 	}
 	
 	@GetMapping("/availableList")
-	public ResponseEntity<List<TimeDTO>> getAvailableSchedule(@RequestParam("userList") List<String> userList) {
-		return new ResponseEntity<List<TimeDTO>>(svc.getAvailableTime(userList), HttpStatus.OK);
+	public ResponseEntity<List<TimeDTO>> getAvailableSchedule(@RequestParam(value="userList[]") List<String> userList, @RequestParam(value="mid") int mid) {
+		return new ResponseEntity<List<TimeDTO>>(svc.getAvailableTime(userList, mid), HttpStatus.OK);
 	}
 }
