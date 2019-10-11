@@ -1,25 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-    <%@ include file="/WEB-INF/views/includes/00_head.jsp" %>
-    <title>모임 생성 | WhenWeMet</title>
-</head>
-<body class="signup-pages">
-
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ include file="/WEB-INF/views/includes/00_head.jsp"%>
     <div class="signup-box">
 		<div class="signup-logo">
-            <b>우리</b>언제<b>만날까?</b>
+            <b>새로운 일정 만들기</b>
         </div>
-        
+    <sec:authentication property="principal" var="userid"/>
         <div class="signup-box-body">
 
-            <form:form role="form" modelAttribute="meetingCommand" action="${pageContext.request.contextPath }/meeting/make" method="POST">
+            <form:form role="form" modelAttribute="meetingCommand" action="${pageContext.request.contextPath }/meeting/makeProcess" method="POST">
                 
                 <div>
-                	<form:input type="hidden" placeholder="${authInfo.id}" path="creator" value="${authInfo.id}"/>
+                	<form:input type="hidden" path="creator" value="${authInfo.id}"/>
                 </div>
                  
                 <div class="row">
@@ -36,6 +30,3 @@
             </form:form>
         </div>
     </div>
-
-</body>
-</html>

@@ -1,14 +1,10 @@
 package com.spring.project.controller;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,98 +12,16 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.project.exception.AlreadyExistingEmailException;
 import com.spring.project.exception.AlreadyExistingIdException;
-import com.spring.project.exception.IdPasswordNotMatchingException;
-import com.spring.project.service.UserService;
-import com.spring.project.util.AuthInfo;
-import com.spring.project.util.LoginCommand;
+import com.spring.project.service.SignUpService;
 import com.spring.project.util.RegisterRequest;
 
 
 @Controller
 @RequestMapping("/user")
-public class UserContoller {
+public class SignUpController {
 	
 	@Autowired
-	private UserService userSer;
-	
-	/**
-	 * index.jsp에서 로그인 버튼을 누를 때 동작.
-	 * /user/loginForm.jsp로 매핑한다.
-	 * @return /user/loginForm.jsp로 매핑되는 ModelAndView
-	 */
-	@RequestMapping(value="/signin", method=RequestMethod.GET)
-	public ModelAndView signinGET(LoginCommand loginCommand,
-			@CookieValue(value="REMEMBER", required=false) Cookie rememberCookie) throws Exception {
-		
-		ModelAndView mv = new ModelAndView();
-		
-		if(rememberCookie != null) {
-			loginCommand.setId(rememberCookie.getValue());
-			loginCommand.setRememberId(true);
-		}
-		
-		mv.setViewName("/user/loginForm");
-		return mv;
-	}
-	
-	/**
-	 * /user/loginForm에서 로그인 버튼을 누를 때 동작.
-	 * 로그인을 시도하고 실패하면 이전 페이지로, 성공하면 로그인 정보를 담아 /로 리다이렉트한다.
-	 * @param loginCommand 입력받은 아이디와 비밀번호
-	 * @param bindingResult loginCommand의 검증
-	 * @param session 세션
-	 * @param response 
-	 * @return '/'로 리다이렉트
-	 */
-	@RequestMapping(value="/signin", method=RequestMethod.POST)
-	public ModelAndView signinPOST(@Valid LoginCommand loginCommand, BindingResult bindingResult,
-			HttpSession session, HttpServletResponse response) throws Exception {
-		
-		ModelAndView mv = new ModelAndView();
-		
-		/* 에러가 발생하면 되돌아가 재시도한다. */
-		if(bindingResult.hasErrors()) {
-			mv.setViewName("/user/loginForm");
-			return mv;
-		}
-		
-		/* 로그인 시도 */
-		try {
-			/* 로그인에 성공하면 로그인 정보를 세션에 저장한다. */
-			AuthInfo authInfo = userSer.loginAuth(loginCommand);
-			session.setAttribute("authInfo", authInfo);
-			
-			Cookie rememberCookie = new Cookie("REMEMBER", loginCommand.getId());
-			rememberCookie.setPath("/");
-			
-			if(loginCommand.isRememberId()) {
-                rememberCookie.setMaxAge(60*60*24*7);
-            } else {
-                rememberCookie.setMaxAge(0);
-            }
-            response.addCookie(rememberCookie);
-          
-		} catch(IdPasswordNotMatchingException e) {
-			bindingResult.rejectValue("password", "notMatch", "패스워드가 일치하지 않습니다.");
-			mv.setViewName("/user/loginForm");
-			return mv;
-		}
-		
-		mv.setViewName("redirect:/");
-		return mv;
-	}
-	
-	/**
-	 * 로그아웃 버튼을 누르면 동작.
-	 * 세션을 만료시키고 '/'로 리다이렉트한다.
-	 * @param session 세션
-	 * @return '/'로 리다이렉트
-	 */
-	@RequestMapping(value="/signout")
-	public String logout(HttpSession session) throws Exception {
-		session.invalidate();
-		return "redirect:/";
-	}
+	private SignUpService ser;
 	
 	/**
 	 * index.jsp에서 회원가입 버튼을 누르면 동작.
@@ -116,7 +30,7 @@ public class UserContoller {
 	 */
 	@RequestMapping(value="signup/step1")
 	public String step1() throws Exception {
-		return "user/signup/step1";
+		return "/user/signup/step1";
 	}
 	
 	/**
@@ -126,11 +40,9 @@ public class UserContoller {
 	 * @param agree
 	 * @return /user/signup/step2.jsp로 매핑되는 ModelAndView
 	 */
-	@RequestMapping(value="signup/step2", method=RequestMethod.POST)
+	@RequestMapping(value="signup/step2", method=RequestMethod.GET)
 	public ModelAndView step2(@RequestParam(value="agree", defaultValue="false") Boolean agree) throws Exception {
-
 		ModelAndView mv = new ModelAndView();
-		
 		if(!agree) {
 			mv.setViewName("/user/signup/step1");
 			return mv;
@@ -139,7 +51,6 @@ public class UserContoller {
 		mv.setViewName("/user/signup/step2");
 		mv.addObject("registerRequest", new RegisterRequest());
 		return mv;
-		
 	}
 	
 	/**
@@ -168,7 +79,7 @@ public class UserContoller {
         }
         
         try {
-            userSer.register(regReq);
+        	ser.register(regReq);
             
         } catch (AlreadyExistingEmailException e) {
         	bindingResult.rejectValue("email", "duplicate", "중복된 이메일입니다.");

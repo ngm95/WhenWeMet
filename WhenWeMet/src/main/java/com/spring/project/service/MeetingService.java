@@ -54,7 +54,7 @@ public class MeetingService {
 		meetingDao.delete(mid);
 	}
 	
-	public List<MeetingDTO> listAll(String creator) throws Exception {
+	public List<MeetingDTO> listAll(String creator) {
 		return meetingDao.listAll(creator);
 	}
 	
