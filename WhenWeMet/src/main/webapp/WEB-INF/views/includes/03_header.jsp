@@ -9,9 +9,9 @@
 <%
 	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 	Object principal = auth.getPrincipal();
-	
+
 	String name = "";
-	if(principal != null) {
+	if (principal != null) {
 		name = auth.getName();
 	}
 %>
@@ -28,18 +28,19 @@
 		<sec:authorize access="isAuthenticated()">
 			<ul class="nav nav-pills pull-right">
 				<ul class="nav nav-pills pull-right">
-					<li role="presentation"><a href="#">${authInfo.name}님, 반갑습니다.</a></li>
+					<li role="presentation"><a href="#">${authInfo.name}님,
+							반갑습니다.</a></li>
 					<li role="presentation"><a href="/user/logout">로그아웃</a></li>
 				</ul>
 			</ul>
 		</sec:authorize>
 	</nav>
-	
+
 	<h3 class="text-muted">
 		<a href="/"><b>우리</b>언제<b>만날까?</b></a>
 	</h3>
-	
-	<div>	
+
+	<div>
 		<ul class="nav nav-pills">
 			<%-- 탭:일정 만들기 --%>
 			<li role="presentation"><a href="/meeting/make">새로운 일정 만들기</a></li>
@@ -51,12 +52,13 @@
 	</div>
 
 	<form method="post" action="/meeting/list" id="postMeetingList">
-		<input type="hidden" name="userId" value="<%=name %>">
+		<input type="hidden" name="userId" value="<%=name%>">
+		 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	</form>
 </div>
 <script>
-	$(document).ready(function(){
-		$("#meetingList").on("click", function(e){
+	$(document).ready(function() {
+		$("#meetingList").on("click", function(e) {
 			e.preventDefault();
 			$("#postMeetingList").submit();
 		});
