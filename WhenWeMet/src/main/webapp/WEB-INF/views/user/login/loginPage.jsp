@@ -43,7 +43,7 @@
 				<button type="submit" class="btn btn-primary">로그인</button>
 			</form>
 			<div class="dropdown-divider"></div>
-			<a class="dropdown-item" href="/user/signup">회원가입하기</a> <a
+			<a class="dropdown-item" href="/user/signup/step1">회원가입하기</a> <a
 				class="dropdown-item" href="/user/findPW">비밀번호 찾기</a>
 		</div>
 

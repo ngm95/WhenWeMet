@@ -44,8 +44,7 @@
 			<%-- 탭:일정 만들기 --%>
 			<li role="presentation"><a href="/meeting/make">새로운 일정 만들기</a></li>
 			<%-- 탭:일정관리 --%>
-			<li role="presentation"><a href="/schedule/list/<%=name %>">일정
-					관리</a></li>
+			<li role="presentation"><a href="#" id=meetingList>일정 관리</a></li>
 			<%-- 탭:받은초대 --%>
 			<li role="presentation"><a href="/invitation/index">받은 초대</a></li>
 		</ul>
