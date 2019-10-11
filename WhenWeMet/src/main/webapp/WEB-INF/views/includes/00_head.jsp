@@ -25,4 +25,11 @@
 	<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>  
 	<meta name="_csrf" content="${_csrf.token}"/>
 	<meta name="_csrf_header" content="${_csrf.headerName}"/>
+	<%  
+		response.setHeader("Cache-Control","no-store");  
+		response.setHeader("Pragma","no-cache");  
+		response.setDateHeader("Expires",0);  
+		if (request.getProtocol().equals("HTTP/1.1"))
+        	response.setHeader("Cache-Control", "no-cache");
+	%>
     <title>When We Met</title>
