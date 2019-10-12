@@ -52,7 +52,7 @@ public class HomeController {
 
 	@GetMapping("/invitation/index") 
 	public void invitationIndex() {
-
+		
 	}
 	
 	@PostMapping("/schedule/index")
