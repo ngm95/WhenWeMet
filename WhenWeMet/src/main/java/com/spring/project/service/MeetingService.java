@@ -10,7 +10,7 @@ import com.spring.project.dao.MeetingDAO;
 import com.spring.project.dto.MeetingDTO;
 import com.spring.project.exception.AlreadyExistingMnameException;
 import com.spring.project.exception.NotExistingMnameException;
-import com.spring.project.util.MeetingRequest;
+import com.spring.project.util.MeetingCommand;
 
 @Service
 public class MeetingService {
@@ -25,13 +25,13 @@ public class MeetingService {
 		meetingDao.create(meetingDto);
 	}
 	
-	public void create(MeetingRequest meRe) throws AlreadyExistingMnameException {
-		MeetingDTO unique = meetingDao.readUniqueMeeting(meRe.getMname(), meRe.getCreator());
+	public void create(MeetingCommand meCo) throws AlreadyExistingMnameException {
+		MeetingDTO unique = meetingDao.readUniqueMeeting(meCo.getMname(), meCo.getCreator());
 		if (unique != null) {
 			throw new AlreadyExistingMnameException("이미 존재하는 이름입니다.");
 		}
 		
-		meetingDao.create(meRe);
+		meetingDao.create(meCo);
 	}
 	
 	public MeetingDTO readByName(String mname) {

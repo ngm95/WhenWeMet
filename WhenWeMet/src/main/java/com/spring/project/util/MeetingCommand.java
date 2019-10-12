@@ -1,14 +1,23 @@
 package com.spring.project.util;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 
 @Entity
 public class MeetingCommand {
 	
 	@NotEmpty(message="모임 이름을 입력해주세요.")
+	@Column
+	@Pattern(regexp="\\S{1,20}", message="1~20자로 입력해주세요.")
 	private String mname;
 	private String creator;
+	
+	public MeetingCommand(String mname, String creator) {
+		this.mname = mname;
+		this.creator = creator;
+	}
 	
 	public String getMname() {
 		return mname;
