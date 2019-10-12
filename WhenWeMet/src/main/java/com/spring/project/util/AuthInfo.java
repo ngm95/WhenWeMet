@@ -4,12 +4,10 @@ public class AuthInfo {
 	
     private String id;
     private String name;
-    private int role;
     
-    public AuthInfo(String id, String name, int role) {
+    public AuthInfo(String id, String name) {
     	this.id = id;
     	this.name = name;
-    	this.role = role;
     }
 
 	public String getId() {
@@ -23,12 +21,6 @@ public class AuthInfo {
 	}
 	public void setName(String name) {
 		this.name = name;
-	}
-	public int getRole() {
-		return role;
-	}
-	public void setRole(int role) {
-		this.role = role;
 	}
 
 }

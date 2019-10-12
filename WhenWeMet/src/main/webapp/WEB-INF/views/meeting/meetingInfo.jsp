@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -15,6 +16,7 @@
 			<h2>by ${meeting.creator }</h2>
 			<form method="post" action="/schedule/index">
 				<input type="hidden" name="mid" value="${meeting.mid }">
+				 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 				<button type="submit" class="btn btn-success">일정 등록</button>
 			</form>
 			<br>
@@ -24,7 +26,7 @@
 		<br>
 		<hr>
 		<div class="container">
-			<h3>참여자 목록</h3>
+			<h3>참여자 목록 </h3>
 			<div class="panel panel-default" id="usrList"></div>
 		</div>
 		<div class="container">
@@ -71,12 +73,19 @@
 	</div>
 	<input type="hidden" id="mid" value="${meeting.mid }">
 	<input type="hidden" id="userId" value="${authInfo.id }">
+	 <input type="hidden" id="csrfId" name="${_csrf.parameterName}" value="${_csrf.token}" />
 </body>
 <script src="/resources/js/invitation.js"></script>
 <script src="/resources/js/proto.js"></script>
 <script>
 	var tList = null;
 	var userList = null;
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+	var csrf = {
+			token:token,
+			header:header
+	};
 	function printUserList(list) {
 		var userList = list;
 		var str = "";	
@@ -151,7 +160,8 @@
 			var obj = {
 				mid : mid,
 				sender : sender,
-				receiver : receiver
+				receiver : receiver,
+				csrf : csrf
 			};
 			ajaxManager.invite(obj, successInvite, errorInvite);
 		});
@@ -175,4 +185,5 @@
 		printSchedule(tList);
 	});
 </script>
+
 </html>

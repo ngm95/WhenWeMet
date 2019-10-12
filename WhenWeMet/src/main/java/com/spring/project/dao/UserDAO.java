@@ -17,31 +17,31 @@ public class UserDAO {
 	@Inject
 	SqlSession sqlSession;
 	
-	public void create(UserDTO userDto) throws Exception {
+	public void create(UserDTO userDto) {
 		sqlSession.insert(NAMESPACE + ".create", userDto);
 	}
 	
-	public void insertUser(RegisterRequest regReq) throws Exception {
+	public void insertUser(RegisterRequest regReq)  {
 		sqlSession.insert(NAMESPACE + ".register", regReq);
 	}
 	
-	public UserDTO readByEmail(String email) throws Exception {
+	public UserDTO readByEmail(String email) {
 		return (UserDTO)sqlSession.selectOne(NAMESPACE + ".readByEmail", email);
 	}
 
-	public UserDTO readById(String userid) throws Exception {
+	public UserDTO readById(String userid) {
 		return (UserDTO)sqlSession.selectOne(NAMESPACE + ".readById", userid);
 	}
 
-	public void update(UserDTO userDto) throws Exception {
+	public void update(UserDTO userDto) {
 		sqlSession.update(NAMESPACE + ".update", userDto);
 	}
 	
-	public void delete(String userid) throws Exception {
+	public void delete(String userid) {
 		sqlSession.delete(NAMESPACE + ".delete", userid); 
 	}
 	
-	public List<UserDTO> listAll() throws Exception {
+	public List<UserDTO> listAll() {
 		return sqlSession.selectList(NAMESPACE + ".listAll");
 	}
 }

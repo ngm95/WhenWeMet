@@ -23,10 +23,10 @@
 		</div>
 		<form method="post" action="/meeting/meetingInfo" id="meetingInfo">
 			<input type="hidden" name="mid" id="mid">
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 		</form>
 		<%@ include file="/WEB-INF/views/includes/09_footer.jsp"%>
 	</div>
-
 </body>
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -41,5 +41,4 @@
 		});
 	});
 </script>
-
 </html>

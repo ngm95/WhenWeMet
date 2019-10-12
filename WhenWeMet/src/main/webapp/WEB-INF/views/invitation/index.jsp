@@ -24,12 +24,19 @@
 			</ul>
 		</div>
 		<input type="hidden" value="${authInfo.id }" id="userId">
+		 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 		<%@ include file="/WEB-INF/views/includes/09_footer.jsp"%>
 	</div>
 </body>
 <script src="/resources/js/invitation.js"></script>
 <script type="text/javascript">
 	var userId = $("#userId").val();
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+	var csrf = {
+			token:token,
+			header:header
+	};
 	function getMeetingName(mid) {
 		var mid = mid;
 		var mname = null;
@@ -86,7 +93,7 @@
 		e.preventDefault();
 		var sender = $(this).parent().attr('id');
 		var mid = $(this).attr("href");
-		var obj = {userId:userId, sender:sender, mid:mid};
+		var obj = {userId:userId, sender:sender, mid:mid, csrf:csrf};
 		ajaxManager.accept(obj, function(){
 			ajaxManager.get(userId, showList);
 			ajaxManager.getGroup(userId, showGroupList);
@@ -97,7 +104,7 @@
 		e.preventDefault();
 		var sender = $(this).parent().attr('id');
 		var mid = $(this).attr("href");
-		var obj = {userId:userId, sender:sender, mid:mid};
+		var obj = {userId:userId, sender:sender, mid:mid, csrf:csrf};
 		ajaxManager.deny(obj, function(){
 			ajaxManager.get(userId, showList);
 		});

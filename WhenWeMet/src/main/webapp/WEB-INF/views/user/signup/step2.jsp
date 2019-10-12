@@ -55,7 +55,7 @@
                 <p>- OR -</p>
             </div>
 
-            <a href="login.html" class="text-center">I already have a membership</a>
+            <p>이미 회원가입 하셨나요?</p><a href="login.jsp" class="text-center">로그인하기</a>
         </div>
     </div>
 

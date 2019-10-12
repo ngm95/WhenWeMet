@@ -16,27 +16,27 @@ public class PartyDAO {
 	@Inject
 	SqlSession sqlSession;
 	
-	public void create(PartyDTO partyDto) throws Exception {
+	public void create(PartyDTO partyDto) {
 		sqlSession.insert(NAMESPACE + ".create", partyDto);
 	}
 	
-	public PartyDTO read(PartyDTO partyDto) throws Exception {
+	public PartyDTO read(PartyDTO partyDto) {
 		return sqlSession.selectOne(NAMESPACE + ".read", partyDto);
 	}
 	
-	public void update(PartyDTO partyDto) throws Exception {
+	public void update(PartyDTO partyDto) {
 		
 	}
 	
-	public void delete(PartyDTO partyDto) throws Exception {
+	public void delete(PartyDTO partyDto) {
 		sqlSession.delete(NAMESPACE + ".delete", partyDto);
 	}
 	
-	public List<PartyDTO> listAll(String uid) throws Exception {
+	public List<PartyDTO> listAll(String uid) {
 		return sqlSession.selectList(NAMESPACE + ".listAll", uid);
 	}
 	
-	public List<String> listByPid(int pid) throws Exception {
+	public List<String> listByPid(int pid) {
 		return sqlSession.selectList(NAMESPACE + ".listByPid", pid);
 	}
 }

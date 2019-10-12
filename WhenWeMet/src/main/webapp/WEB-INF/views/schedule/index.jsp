@@ -83,15 +83,23 @@
 	</div>
 	<input type="hidden" id="mid" value="${meeting.mid }">
 	<input type="hidden" id="userId" value="${authInfo.id }">
+	 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 </body>
 <script src="/resources/js/schedule.js"></script>
 <script src="/resources/js/proto.js"></script>
 <script>
 	var userId = $("#userId").val();
 	var mid = $("#mid").val();
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+	var csrf = {
+			token:token,
+			header:header
+	};
 	var obj = {
 			userId:userId,
-			mid:mid
+			mid:mid,
+			csrf:csrf
 	};
 	function printSchedule(list) {
 		var list = list;
@@ -158,7 +166,8 @@
 					mid:mid,
 					start_time:startDate,
 					end_time:endDate,
-					userid:userId
+					userid:userId,
+					csrf:csrf
 			};
 			ajaxManager.addSchedule(scheduleDTO, addSuccess);
 		});
@@ -166,7 +175,11 @@
 	
 	$(document).on("click",".deleteSchedule", function(){
 		var sid = $(this).attr('id');
-		ajaxManager.deleteSchedule(sid, deleteSuccess);
+		var data = {
+				sid:sid,
+				csrf:csrf
+		};
+		ajaxManager.deleteSchedule(data, deleteSuccess);
 		ajaxManager.getSchedule(obj, printSchedule);
 	});
 </script>

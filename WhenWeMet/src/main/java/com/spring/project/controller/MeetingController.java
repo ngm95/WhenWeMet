@@ -27,7 +27,6 @@ import com.spring.project.dto.PartyDTO;
 import com.spring.project.exception.AlreadyExistingIdException;
 import com.spring.project.service.MeetingService;
 import com.spring.project.service.PartyService;
-import com.spring.project.util.AuthInfo;
 import com.spring.project.util.MeetingCommand;
 import com.spring.project.util.MeetingRequest;
 
@@ -50,12 +49,6 @@ public class MeetingController {
 	public ModelAndView makeGET(MeetingCommand meetingCommand, HttpSession session) {
 		ModelAndView mv = new ModelAndView();
 		
-		AuthInfo authInfo = (AuthInfo)session.getAttribute("authInfo");
-		if (authInfo == null) {
-			mv.setViewName("redirect:/");
-			return mv;
-		}
-		
 		mv.setViewName("/meeting/makeForm");
 		return mv;
 	}
@@ -68,8 +61,8 @@ public class MeetingController {
 	 * @return '/'로 리다이렉트
 	 * @throws Exception 
 	 */
-	@RequestMapping(value="/make", method=RequestMethod.POST)
-	public ModelAndView makePOST(@Valid MeetingCommand meetingCommand, BindingResult bindingResult, HttpSession session) throws Exception {
+	@RequestMapping(value="/makeProcess", method=RequestMethod.POST)
+	public ModelAndView makePOST(@Valid MeetingCommand meetingCommand, BindingResult bindingResult) {
 		ModelAndView mv = new ModelAndView();
 		
 		if (bindingResult.hasErrors()) {

@@ -22,11 +22,8 @@ import com.spring.project.service.InvitationService;
 import com.spring.project.service.MeetingService;
 import com.spring.project.service.PartyService;
 
-import lombok.extern.log4j.Log4j;
-
 @RestController
 @RequestMapping("/invitation")
-@Log4j
 public class InvitationController {
 	@Autowired
 	InvitationService svc;

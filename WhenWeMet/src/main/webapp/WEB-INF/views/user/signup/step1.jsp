@@ -14,7 +14,7 @@
         </div>
 
         <div class="signup-box-body">
-            <p class="box-msg">Register a new membership</p>
+            <p class="box-msg">회원 가입</p>
 
             <div class="box">
                 <div class="box-header">
@@ -228,7 +228,7 @@
 
             </div>
             <div class="row">
-            <form action="${pageContext.request.contextPath }/user/signup/step2" method="post">
+            <form action="${pageContext.request.contextPath }/user/signup/step2" method="GET">
                 <div class="col-xs-8">
                     <label class="btn">
                         <input type="checkbox" name="agree"> 동의합니다.
