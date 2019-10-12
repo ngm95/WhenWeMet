@@ -47,10 +47,6 @@ public class dbTest {
 		List<String> userList = new LinkedList<>();
 		userList.add("admin");
 		userList.add("user00");
-		userList.add("user01");
-		userList.add("user02");
-		svc.getAvailableTime(userList, 6).forEach(result -> System.out.println(result));
-		UserDTO dto = udao.readById("0");
-		System.out.println(dto);
+		svc.getAvailableTime(userList, 7).forEach(r -> System.out.println(r));
 	}
 }

@@ -2,8 +2,13 @@ package com.spring.project.service;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.inject.Inject;
 
@@ -12,6 +17,7 @@ import org.springframework.stereotype.Service;
 import com.spring.project.dao.ScheduleDAO;
 import com.spring.project.dto.ScheduleDTO;
 import com.spring.project.dto.TimeDTO;
+import com.spring.project.util.TimeArray;
 
 @Service
 public class ScheduleService {
@@ -40,59 +46,86 @@ public class ScheduleService {
 	
 	//같은 미팅 그룹에 있는 사용자들 간에 서로 만날 수 있는 시간을 찾아줌
 	public List<TimeDTO> getAvailableTime(List<String> userList, int mid) {
-		List<TimeDTO> result = new ArrayList<TimeDTO>();
-		List<TimeDTO> timeList = new ArrayList<TimeDTO>();
-		Calendar c = Calendar.getInstance();
-		c.setTimeInMillis(Long.MAX_VALUE);
-		Date minDate = c.getTime();
-		c.setTimeInMillis(Long.MIN_VALUE);
-		Date maxDate = c.getTime();
-		getScheduleByUserList(userList, mid).forEach(res -> {
-			TimeDTO dto = new TimeDTO();
-			dto.setStart_time(res.getStart_time());
-			dto.setEnd_time(res.getEnd_time());
-			timeList.add(dto);
-		});	
-		timeList.forEach(t -> {
-			Date s = t.getStart_time();
-			Date e = t.getEnd_time();
-			if(s.compareTo(minDate) == -1)
-				minDate.setTime(s.getTime());
-			if(e.compareTo(maxDate) == 1)
-				maxDate.setTime(e.getTime());
-		});
-		long start = minDate.getTime();
-		long end = maxDate.getTime();
+		List<TimeDTO> result = new LinkedList<>();
+		List<ScheduleDTO> list = getScheduleByUserList(userList, mid);
+		Map<String, List<ScheduleDTO>> map = new HashMap<>();
 		
-		Long startTime = 0L, endTime = 0L;
-		for(long curr = start; curr < end; curr += 60000) {
-			boolean intersection = false;
-			for(TimeDTO t : timeList) {
-				long s = t.getStart_time().getTime();
-				long e = t.getEnd_time().getTime();
-				if(s <= curr && curr <= e) {
-					intersection = true;
+		for(ScheduleDTO sDto : list) {
+			String user = sDto.getUserid();
+			if(!map.containsKey(user)) {
+				List<ScheduleDTO> sList = new LinkedList<>();
+				sList.add(sDto);
+				map.put(user, sList);
+			} else {
+				List<ScheduleDTO> sList = map.get(user);
+				sList.add(sDto);
+				map.put(user, sList);
+			}
+		}
+		
+		Set<String> keySet = map.keySet();
+		TimeArray[] tArray;
+		tArray = new TimeArray[keySet.size()];
+		int idx = 0;
+		long min = Long.MAX_VALUE;
+		long max = Long.MIN_VALUE;
+		for(String key : keySet) {
+			List<ScheduleDTO> temp = map.get(key);
+			Collections.sort(temp);
+			tArray[idx] = new TimeArray(temp.size());
+			for(ScheduleDTO sDto : temp) {
+				TimeDTO t = new TimeDTO();
+				Date st = sDto.getStart_time();
+				Date et = sDto.getEnd_time();
+				t.setStart_time(st);
+				t.setEnd_time(et);
+				tArray[idx].add(t);
+				if(min > st.getTime())
+					min = st.getTime();
+				if(max < et.getTime())
+					max = et.getTime();
+			}
+			idx++;
+		}
+		
+		long startDate = 0L, endDate = 0L;
+		for(long i = min; i <= max; i += 60000L) {
+			long now = i;
+			boolean intersect = false;
+			for(int j = 0; j < tArray.length; j++) {
+				long start = tArray[j].getCurr().getStart_time().getTime();
+				long end = tArray[j].getCurr().getEnd_time().getTime();
+				if(now > end) {
+					if(tArray[j].hasNext())
+						tArray[j].next();
 				}
-				else {
-					intersection = false;
+				if(start <= now && now <= end) {
+					intersect = true;
+				} else {
+					intersect = false;
 					break;
 				}
 			}
-			if(intersection && startTime == 0L) {
-				startTime = curr;
+			
+			if(intersect) {
+				if(startDate == 0L) 
+					startDate = now;
+				else
+					endDate = now;
 			}
-			else if(!intersection) {
-				if(startTime != 0L) {
-					endTime = curr - 60000;
-					TimeDTO dto = new TimeDTO();
-					dto.setStart_time(new Date(startTime));
-					dto.setEnd_time(new Date(endTime));
-					result.add(dto);
-					startTime = 0L;
-					endTime = 0L;
+			else {
+				if(startDate != 0L && endDate != 0L) {
+					Date sd = new Date(startDate);
+					Date ed = new Date(endDate);
+					TimeDTO td = new TimeDTO();
+					td.setStart_time(sd);
+					td.setEnd_time(ed);
+					result.add(td);
+					startDate = 0L;
+					endDate = 0L;
 				}
 			}
-		}	
+		}
 		return result;
 	}
 }
