@@ -6,7 +6,7 @@
 <%@ include file="/WEB-INF/views/includes/00_head.jsp"%>
 
 <body class="main-pages">
-	<div class="container">
+	<div class="container" style="height: 100%">
 		<%@ include file="/WEB-INF/views/includes/03_header.jsp"%>
 		<div class="signup-box">
 			<div class="signup-logo">
@@ -38,6 +38,6 @@
 
 			</div>
 		</div>
-		<%@ include file="/WEB-INF/views/includes/09_footer.jsp"%>
 	</div>
 </body>
+<%@ include file="/WEB-INF/views/includes/09_footer.jsp"%>

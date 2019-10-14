@@ -35,7 +35,6 @@
 				
 			</div>
 		</div>
-
 		<%@ include file="/WEB-INF/views/includes/09_footer.jsp"%>
 	</div>
 	<div class="modal fade" id="inviteModal" role="dialog">

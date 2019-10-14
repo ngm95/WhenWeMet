@@ -7,18 +7,13 @@
 <%@ include file="/WEB-INF/views/includes/00_head.jsp"%>
 </head>
 <body class="main-pages">
-	<div class="container">
+	<div class="container" style="height: 100%">
 		<%@ include file="/WEB-INF/views/includes/03_header.jsp"%>
-		
-			<div class="jumbotron">
-				<h1>우리 언제 만날까?</h1>
-				<p class="lead">일정을 생성하고 팀원들과 맞는 시간을 찾아보세요!</p>
-			</div>
-			
-		<%@ include file="/WEB-INF/views/includes/09_footer.jsp"%>
-		
+		<div class="jumbotron">
+			<h1>우리 언제 만날까?</h1>
+			<p class="lead">일정을 생성하고 팀원들과 맞는 시간을 찾아보세요!</p>
+		</div>
 	</div>
-
 </body>
-
+<%@ include file="/WEB-INF/views/includes/09_footer.jsp"%>
 </html>
