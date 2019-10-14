@@ -35,7 +35,6 @@
 				
 			</div>
 		</div>
-		<%@ include file="/WEB-INF/views/includes/09_footer.jsp"%>
 	</div>
 	<div class="modal fade" id="inviteModal" role="dialog">
 		<div class="modal-dialog">
@@ -74,6 +73,7 @@
 	<input type="hidden" id="userId" value="${authInfo.id }">
 	 <input type="hidden" id="csrfId" name="${_csrf.parameterName}" value="${_csrf.token}" />
 </body>
+<%@ include file="/WEB-INF/views/includes/09_footer.jsp"%>
 <script src="/resources/js/invitation.js"></script>
 <script src="/resources/js/proto.js"></script>
 <script>

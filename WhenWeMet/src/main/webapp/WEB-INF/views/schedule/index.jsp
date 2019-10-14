@@ -13,7 +13,7 @@
 </style>
 </head>
 <body class="main-pages">
-	<div class="container">
+	<div class="container" style="height: 100%">
 		<%@ include file="/WEB-INF/views/includes/03_header.jsp"%>
 		<div class="container">
 			<h2>${meeting.mname } 모임에 참석 가능한 자신의 시간을 알려주세요.</h2>
