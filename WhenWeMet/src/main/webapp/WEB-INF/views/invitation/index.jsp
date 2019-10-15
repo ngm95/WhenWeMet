@@ -7,7 +7,7 @@
 <%@ include file="/WEB-INF/views/includes/00_head.jsp"%>
 </head>
 <body class="main-pages">
-	<div class="container">
+	<div class="container" style="height: 100%">
 		<%@ include file="/WEB-INF/views/includes/03_header.jsp"%>
 		<div>
 			<a data-toggle="collapse" href="#collapse1" id="getInvitation">초대 요청 <span class="badge" id="listSize"></span></a> 
@@ -25,9 +25,9 @@
 		</div>
 		<input type="hidden" value="${authInfo.id }" id="userId">
 		 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-		<%@ include file="/WEB-INF/views/includes/09_footer.jsp"%>
 	</div>
 </body>
+<%@ include file="/WEB-INF/views/includes/09_footer.jsp"%>
 <script src="/resources/js/invitation.js"></script>
 <script type="text/javascript">
 	var userId = $("#userId").val();

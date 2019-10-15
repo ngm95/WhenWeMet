@@ -19,19 +19,15 @@
 	<nav>
 		<sec:authorize access="isAnonymous()">
 			<ul class="nav nav-pills pull-right">
-				<ul class="nav nav-pills pull-right">
-					<li role="presentation"><a href="/user/login/loginPage">로그인</a></li>
-					<li role="presentation"><a href="/user/signup/step1">회원가입</a></li>
-				</ul>
+				<li role="presentation"><a href="/user/login/loginPage">로그인</a></li>
+				<li role="presentation"><a href="/user/signup/step1">회원가입</a></li>
 			</ul>
 		</sec:authorize>
 		<sec:authorize access="isAuthenticated()">
 			<ul class="nav nav-pills pull-right">
-				<ul class="nav nav-pills pull-right">
-					<li role="presentation"><a href="#">${authInfo.name}님,
-							반갑습니다.</a></li>
-					<li role="presentation"><a href="/user/logout">로그아웃</a></li>
-				</ul>
+				<li role="presentation"><a href="#">${authInfo.name}님,
+						반갑습니다.</a></li>
+				<li role="presentation"><a href="/user/logout">로그아웃</a></li>
 			</ul>
 		</sec:authorize>
 	</nav>
@@ -52,8 +48,8 @@
 	</div>
 
 	<form method="post" action="/meeting/list" id="postMeetingList">
-		<input type="hidden" name="userId" value="<%=name%>">
-		 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+		<input type="hidden" name="userId" value="<%=name%>"> <input
+			type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	</form>
 </div>
 <script>

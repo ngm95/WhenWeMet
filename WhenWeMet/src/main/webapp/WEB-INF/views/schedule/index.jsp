@@ -13,7 +13,7 @@
 </style>
 </head>
 <body class="main-pages">
-	<div class="container">
+	<div class="container" style="height: 100%">
 		<%@ include file="/WEB-INF/views/includes/03_header.jsp"%>
 		<div class="container">
 			<h2>${meeting.mname } 모임에 참석 가능한 자신의 시간을 알려주세요.</h2>
@@ -79,12 +79,12 @@
 				</div>
 			</div>
 		</div>
-		<%@ include file="/WEB-INF/views/includes/09_footer.jsp"%>
 	</div>
 	<input type="hidden" id="mid" value="${meeting.mid }">
 	<input type="hidden" id="userId" value="${authInfo.id }">
 	 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 </body>
+<%@ include file="/WEB-INF/views/includes/09_footer.jsp"%>
 <script src="/resources/js/schedule.js"></script>
 <script src="/resources/js/proto.js"></script>
 <script>

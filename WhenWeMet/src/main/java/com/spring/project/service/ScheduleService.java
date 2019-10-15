@@ -1,7 +1,5 @@
 package com.spring.project.service;
 
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -89,7 +87,7 @@ public class ScheduleService {
 		}
 		
 		long startDate = 0L, endDate = 0L;
-		for(long i = min; i <= max; i += 60000L) {
+		for(long i = min; i <= max + 60000; i += 60000L) {
 			long now = i;
 			boolean intersect = false;
 			for(int j = 0; j < tArray.length; j++) {
@@ -115,11 +113,9 @@ public class ScheduleService {
 			}
 			else {
 				if(startDate != 0L && endDate != 0L) {
-					Date sd = new Date(startDate);
-					Date ed = new Date(endDate);
 					TimeDTO td = new TimeDTO();
-					td.setStart_time(sd);
-					td.setEnd_time(ed);
+					td.setStart_time(new Date(startDate));
+					td.setEnd_time(new Date(endDate));
 					result.add(td);
 					startDate = 0L;
 					endDate = 0L;
