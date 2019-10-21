@@ -2,7 +2,10 @@ package com.spring.project.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,12 +15,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.spring.project.dto.CalendarDTO;
 import com.spring.project.dto.ScheduleDTO;
 import com.spring.project.dto.TimeDTO;
 import com.spring.project.service.ScheduleService;
+
+import flexjson.JSONSerializer;
 
 @RestController
 @RequestMapping("/schedule")
@@ -51,5 +60,14 @@ public class ScheduleController {
 	@GetMapping("/availableList")
 	public ResponseEntity<List<TimeDTO>> getAvailableSchedule(@RequestParam(value="userList[]") List<String> userList, @RequestParam(value="mid") int mid) {
 		return new ResponseEntity<List<TimeDTO>>(svc.getAvailableTime(userList, mid), HttpStatus.OK);
+	}
+	
+	@RequestMapping("/table")
+	public ModelAndView scheduleTable(HttpSession session, @RequestParam(value="mid") int mid) {
+		ModelAndView mv = new ModelAndView("/schedule/table");
+		if (session.getAttribute("JSONSchedule") != null)
+			session.removeAttribute("JSONSchedule");
+		session.setAttribute("JSONSchedule", svc.getAllJSONSchedule(mid));
+		return mv;
 	}
 }

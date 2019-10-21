@@ -12,4 +12,5 @@ public interface ScheduleDAO{
 	public void update(ScheduleDTO dto);
 	public List<ScheduleDTO> selectByUser(@Param("userid") String userid, @Param("mid") int mid);
 	public List<ScheduleDTO> selectByManyUser(@Param("list") List<String> userList, @Param("mid") int mid);
+	public List<ScheduleDTO> selectAll(@Param("mid") int mid);
 }

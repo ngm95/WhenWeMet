@@ -30,4 +30,8 @@
         		#{userid}
 		</foreach> and mid = #{mid}
 	</select>
+	<select id="selectAll" resultType="com.spring.project.dto.ScheduleDTO">
+		select * from schedule
+		where mid = #{mid}
+	</select>
 </mapper>

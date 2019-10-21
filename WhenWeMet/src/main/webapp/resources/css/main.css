@@ -3,6 +3,12 @@
     padding-bottom: 20px;
 }
 
+.table {border-collapse:collapse; width:100%}
+.table thead{float:left; width:700px;}
+.table tbody{overflow-y:auto; overflow-x:hidden; float:left; width:700px; height:650px}
+.table tbody tr{display:table; width:700px;}
+.table td{width:100px}
+
 .header,
 .footer {
     padding-right: 15px;

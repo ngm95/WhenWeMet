@@ -3,6 +3,7 @@ package com.spring.project.service;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +14,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.spring.project.dao.ScheduleDAO;
+import com.spring.project.dto.CalendarDTO;
 import com.spring.project.dto.ScheduleDTO;
 import com.spring.project.dto.TimeDTO;
 import com.spring.project.util.TimeArray;
@@ -40,6 +42,34 @@ public class ScheduleService {
 	
 	public List<ScheduleDTO> getScheduleByUserList(List<String> userList, int mid) {
 		return mapper.selectByManyUser(userList, mid);
+	}
+	
+	public List<CalendarDTO> getAllJSONSchedule(int mid) {
+		List<ScheduleDTO> list = mapper.selectAll(mid);
+		List<CalendarDTO> result = new LinkedList<>();
+		
+		Iterator<ScheduleDTO> it = list.iterator();
+		while(it.hasNext()) {
+			ScheduleDTO item = it.next();
+			Date start = item.getStart_time();
+			Date end = item.getEnd_time();
+			String tMonth, tDate, tHours, tMinutes, tSeconds;
+			if (start.getMonth()+1 <= 9) tMonth = "0" + start.getMonth(); else tMonth = start.getMonth()+1 + "";
+			if (start.getDate() <= 9) tDate = "0" + start.getDate(); else tDate = start.getDate() + "";
+			if (start.getHours() <= 9) tHours = "0" + start.getHours(); else tHours= start.getHours() + "";
+			if (start.getMinutes() <= 9) tMinutes = "0" + start.getMinutes(); else tMinutes = start.getMinutes() + "";
+			if (start.getSeconds() <= 9) tSeconds = "0" + start.getSeconds(); else tSeconds = start.getSeconds() + "";
+			String startTime = start.getYear()+1900+"-"+tMonth+"-"+tDate+"T"+tHours+":"+tMinutes+":"+tSeconds;
+			if (end.getMonth()+1 <= 9) tMonth = "0" + end.getMonth(); else tMonth = end.getMonth()+1 + "";
+			if (end.getDate() <= 9) tDate = "0" + end.getDate(); else tDate = end.getDate() + "";
+			if (end.getHours() <= 9) tHours = "0" + end.getHours(); else tHours= end.getHours() + "";
+			if (end.getMinutes() <= 9) tMinutes = "0" + end.getMinutes(); else tMinutes = end.getMinutes() + "";
+			if (end.getSeconds() <= 9) tSeconds = "0" + end.getSeconds(); else tSeconds = end.getSeconds() + "";
+			String endTime = end.getYear()+1900+"-"+tMonth+"-"+tDate+"T"+tHours+":"+tMinutes+":"+tSeconds;
+			CalendarDTO cDto = new CalendarDTO(item.getUserid(), startTime, endTime);
+			result.add(cDto);
+		}
+		return result;
 	}
 	
 	//같은 미팅 그룹에 있는 사용자들 간에 서로 만날 수 있는 시간을 찾아줌

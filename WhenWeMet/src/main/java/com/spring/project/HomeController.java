@@ -60,5 +60,4 @@ public class HomeController {
 		MeetingDTO dto = msvc.readByMid(mid);
 		model.addAttribute("meeting", dto);
 	}
-
 }
