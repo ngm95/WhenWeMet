@@ -18,14 +18,14 @@
 		<div class="signup-box-body">
 			<p class="box-msg">로그인 양식</p>
 
-			<form class="px-4 py-3" action='<c:url value="/user/loginProcess"/>' method="post">
+			<form class="px-4 py-3" action='<c:url value="/user/login/loginProcess"/>' method="post">
 				<div class="form-group">
 					<label for="exampleDropdownFormEmail1">아이디</label> 
 					<input type="text" class="form-control" name="loginID" placeholder="ID" value="${loginId }">
 				</div>
 				<div class="form-group">
 					<label for="exampleDropdownFormPassword1">비밀번호</label> 
-					<input type="password" class="form-control" name="loginPW" placeholder="Password" value="${loginPwd }">
+					<input type="password" class="form-control" name="loginPW" placeholder="Password" value="${loginPw }">
 				</div>
 				<c:if test="${not empty ERRORMSG}">
 					<font color="red">

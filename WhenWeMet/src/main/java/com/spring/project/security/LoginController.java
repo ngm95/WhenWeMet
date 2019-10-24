@@ -13,10 +13,4 @@ public class LoginController {
 	public String loginPage() throws Exception {
 		return "/user/login/loginPage";
 	}
-	
-	@RequestMapping(value="logout")
-	public String logout(HttpSession session) throws Exception {
-		session.invalidate();
-		return "redirect:/";
-	}
 }
