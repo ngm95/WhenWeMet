@@ -3,17 +3,19 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
-<%@ page
-	import="org.springframework.security.core.context.SecurityContextHolder"%>
+<%@ page import="org.springframework.security.core.context.SecurityContextHolder"%>
+<%@ page import="com.spring.project.security.CustomUserDetails" %>
 <%@ page import="org.springframework.security.core.Authentication"%>
 <%
 	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 	Object principal = auth.getPrincipal();
-
-	String name = "";
-	if (principal != null) {
-		name = auth.getName();
+	String uid = "";
+	CustomUserDetails prin = null;
+	if (!(principal instanceof String)) {
+		prin = (CustomUserDetails)principal;
+		uid = prin.getUsername();
 	}
+	
 %>
 <div class="header">
 	<nav>
@@ -25,7 +27,7 @@
 		</sec:authorize>
 		<sec:authorize access="isAuthenticated()">
 			<ul class="nav nav-pills pull-right">
-				<li role="presentation"><a href="#">${authInfo.name}님,
+				<li role="presentation"><a href="#"><%=uid%>님,
 						반갑습니다.</a></li>
 				<li role="presentation"><a href="/user/logout">로그아웃</a></li>
 			</ul>
@@ -48,8 +50,8 @@
 	</div>
 
 	<form method="post" action="/meeting/list" id="postMeetingList">
-		<input type="hidden" name="userId" value="<%=name%>"> <input
-			type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+		<input type="hidden" name="userId" value="<%=uid%>"> 
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	</form>
 </div>
 <script>

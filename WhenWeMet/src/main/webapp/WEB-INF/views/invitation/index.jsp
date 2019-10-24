@@ -23,7 +23,7 @@
 			<ul id="groupList">
 			</ul>
 		</div>
-		<input type="hidden" value="${authInfo.id }" id="userId">
+		<input type="hidden" value="<%=uid%>" id="userId">
 		 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	</div>
 </body>
