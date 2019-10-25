@@ -18,28 +18,23 @@
 	
 %>
 <div class="header">
-	<nav>
-		<sec:authorize access="isAnonymous()">
-			<ul class="nav nav-pills pull-right">
-				<li role="presentation"><a href="/user/login/loginPage">로그인</a></li>
-				<li role="presentation"><a href="/user/signup/step1">회원가입</a></li>
-			</ul>
-		</sec:authorize>
-		<sec:authorize access="isAuthenticated()">
-			<ul class="nav nav-pills pull-right">
-				<li role="presentation"><a href="#"><%=uid%>님,
-						반갑습니다.</a></li>
-				<li role="presentation"><a href="/user/logout">로그아웃</a></li>
-			</ul>
-		</sec:authorize>
-	</nav>
-
-	<h3 class="text-muted">
-		<a href="/"><b>우리</b>언제<b>만날까?</b></a>
-	</h3>
+	<sec:authorize access="isAnonymous()">
+		<ul class="nav nav-pills pull-right">
+			<li role="presentation"><a href="/user/login/loginPage">로그인</a></li>
+			<li role="presentation"><a href="/user/signup/step1">회원가입</a></li>
+		</ul>
+	</sec:authorize>
+	<sec:authorize access="isAuthenticated()">
+		<ul class="nav nav-pills pull-right">
+			<li><button class="btn btn-info" data-toggle="modal" data-target="#getInviteModal">받은 초대</button></li>
+			<li role="presentation"><a href="#"><%=uid%>님, 반갑습니다.</a></li>
+			<li role="presentation"><a href="/user/logout">로그아웃</a></li>
+		</ul>
+	</sec:authorize>
 
 	<div>
 		<ul class="nav nav-pills">
+			<li role="presentation"><h3 class="text-muted"><a href="/"><b>우리</b>언제<b>만날까?</b></a></h3></li>
 			<%-- 탭:모임 만들기 --%>
 			<li role="presentation"><a href="/meeting/make">새로운 모임 만들기</a></li>
 			<%-- 탭:모임관리 --%>
@@ -53,12 +48,36 @@
 		<input type="hidden" name="userId" value="<%=uid%>"> 
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	</form>
+	
+	<div class="modal fade" id="getInviteModal" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">나에게 온 초대</h4>
+				</div>
+				<div class="modal-body">
+					<ul id="senderList">
+					</ul>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<input type="hidden" name="userId" value="<%=uid%>"> 
+	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 </div>
-<script>
+<script src="/resources/js/invitation.js"></script>
+<script type="text/javascript">
+	
 	$(document).ready(function() {
 		$("#meetingList").on("click", function(e) {
 			e.preventDefault();
 			$("#postMeetingList").submit();
 		});
 	});
+	
+	
 </script>

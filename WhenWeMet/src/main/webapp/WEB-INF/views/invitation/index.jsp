@@ -13,8 +13,7 @@
 			<a data-toggle="collapse" href="#collapse1" id="getInvitation">초대 요청 <span class="badge" id="listSize"></span></a> 
 		</div>
 		<div id="collapse1" class="collapse">
-			<ul id="senderList">
-			</ul>
+			
 		</div>
 		<div>
 			<a data-toggle="collapse" href="#collapse2" id="group">그룹 목록 <span class="badge" id="groupSize"></span></a> 

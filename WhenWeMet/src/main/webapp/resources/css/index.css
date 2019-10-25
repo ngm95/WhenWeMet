@@ -21,13 +21,6 @@
 .marketing p+h4 {
     margin-top: 28px;
 }
-
-@media (min-width: 768px) {
-    .container {
-        max-width: 730px;
-    }
-}
-
 @media screen and (min-width: 768px) {
 
     .header,

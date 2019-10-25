@@ -20,8 +20,7 @@
 				<button type="submit" class="btn btn-success">일정 등록</button>
 			</form>
 			<br>
-			<button class="btn btn-info" data-toggle="modal"
-				data-target="#inviteModal">초대 하기</button>
+			<button class="btn btn-info" data-toggle="modal" data-target="#inviteModal">초대 하기</button>
 		</center>
 		<br>
 		<hr>
