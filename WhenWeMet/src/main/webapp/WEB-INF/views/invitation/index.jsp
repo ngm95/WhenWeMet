@@ -15,15 +15,8 @@
 		<div id="collapse1" class="collapse">
 			
 		</div>
-		<div>
-			<a data-toggle="collapse" href="#collapse2" id="group">그룹 목록 <span class="badge" id="groupSize"></span></a> 
-		</div>
-		<div id="collapse2" class="collapse">
-			<ul id="groupList">
-			</ul>
-		</div>
 		<input type="hidden" value="<%=uid%>" id="userId">
-		 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	</div>
 </body>
 <%@ include file="/WEB-INF/views/includes/09_footer.jsp"%>
@@ -63,28 +56,12 @@
 		$("#senderList").html(str);
 		$("#listSize").html(len);
 	}
-	function showGroupList(list) {
-		var list = list;
-		var str = "";
-		var len = list.length;
-		for(var i = 0; i < len; i++) {
-			var data = list[i];
-			str += "<li> 그룹 이름: " + data.mname + ", 만든 사람: " + data.creator
-			str += "</li>"
-		}
-		$("#groupList").html(str);
-		$("#groupSize").html(len);
-	}
+	
 	$(document).ready(function(){
 		var getInvitation = $("#getInvitation");
-		var group= $("#group");
 		ajaxManager.get(userId, showList);
-		ajaxManager.getGroup(userId, showGroupList);
 		getInvitation.on("click", function(){
 			ajaxManager.get(userId, showList);
-		});
-		group.on("click", function(){
-			ajaxManager.getGroup(userId, showGroupList);
 		});
 	});
 	
@@ -95,7 +72,6 @@
 		var obj = {userId:userId, sender:sender, mid:mid, csrf:csrf};
 		ajaxManager.accept(obj, function(){
 			ajaxManager.get(userId, showList);
-			ajaxManager.getGroup(userId, showGroupList);
 		});
 	});
 	

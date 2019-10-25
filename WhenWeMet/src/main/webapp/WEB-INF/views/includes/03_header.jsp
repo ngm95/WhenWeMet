@@ -9,13 +9,7 @@
 <%
 	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 	Object principal = auth.getPrincipal();
-	String uid = "";
-	CustomUserDetails prin = null;
-	if (!(principal instanceof String)) {
-		prin = (CustomUserDetails)principal;
-		uid = prin.getUsername();
-	}
-	
+	String uid = auth.getName();
 %>
 <div class="header">
 	<sec:authorize access="isAnonymous()">
@@ -26,7 +20,7 @@
 	</sec:authorize>
 	<sec:authorize access="isAuthenticated()">
 		<ul class="nav nav-pills pull-right">
-			<li><button class="btn btn-info" data-toggle="modal" data-target="#getInviteModal">받은 초대</button></li>
+			<li><button class="btn btn-info" data-toggle="modal" data-target="#getInviteModal" id="getInvitation">받은 초대</button></li>
 			<li role="presentation"><a href="#"><%=uid%>님, 반갑습니다.</a></li>
 			<li role="presentation"><a href="/user/logout">로그아웃</a></li>
 		</ul>
@@ -39,8 +33,6 @@
 			<li role="presentation"><a href="/meeting/make">새로운 모임 만들기</a></li>
 			<%-- 탭:모임관리 --%>
 			<li role="presentation"><a href="#" id=meetingList>모임 관리</a></li>
-			<%-- 탭:받은초대 --%>
-			<li role="presentation"><a href="/invitation/index">받은 초대</a></li>
 		</ul>
 	</div>
 
@@ -66,18 +58,83 @@
 			</div>
 		</div>
 	</div>
-	<input type="hidden" name="userId" value="<%=uid%>"> 
-	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+	<sec:authorize access="isAuthenticated()">
+		<input type="hidden" id="uid" value="<%=uid%>"> 
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+	</sec:authorize>
 </div>
-<script src="/resources/js/invitation.js"></script>
+<sec:authorize access="isAuthenticated()">
+	<script src="/resources/js/invitation.js"></script>
+</sec:authorize>
 <script type="text/javascript">
-	
 	$(document).ready(function() {
 		$("#meetingList").on("click", function(e) {
 			e.preventDefault();
 			$("#postMeetingList").submit();
 		});
 	});
-	
-	
+
+	<sec:authorize access="isAuthenticated()">
+		var userId = $("#uid").val();
+		var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
+		var csrf = {
+				token:token,
+				header:header
+		};
+		
+		function getMeetingName(mid) {
+			var mid = mid;
+			var mname = null;
+			$.ajax({
+				url : "/meeting/name/"+mid,
+				type : "get",
+				success : function(data) {
+					mname = data;
+				},
+				async: false
+			});
+			return mname;
+		}
+		function showList(list) {
+			var list = list;
+			var str = "";
+			var len = list.length;
+			for(var i = 0; i < len; i++) {
+				var data = list[i];
+				var meetingName = getMeetingName(data.mid);
+				str += "<li id='"+ data.sender +"'>" + data.sender + " 님이 "+ meetingName + " 모임으로 초대하였습니다.";
+				str += "<a class='accept' href='"+data.mid+"'> 수락</a> <a class='deny' href='"+data.mid+"'>거절</a>"
+				str += "</li>";
+			}
+			$("#senderList").html(str);
+		}
+		$(document).ready(function(){
+			var getInvitation = $("#getInvitation");
+			ajaxManager.get(userId, showList);
+			getInvitation.on("click", function(){
+				ajaxManager.get(userId, showList);
+			});
+		});
+		
+		$(document).on("click", ".accept", function(e){
+			e.preventDefault();
+			var sender = $(this).parent().attr('id');
+			var mid = $(this).attr("href");
+			var obj = {userId:userId, sender:sender, mid:mid, csrf:csrf};
+			ajaxManager.accept(obj, function(){
+				ajaxManager.get(userId, showList);
+			});
+		});
+		
+		$(document).on("click", ".deny", function(e){
+			e.preventDefault();
+			var sender = $(this).parent().attr('id');
+			var mid = $(this).attr("href");
+			var obj = {userId:userId, sender:sender, mid:mid, csrf:csrf};
+			ajaxManager.deny(obj, function(){
+				ajaxManager.get(userId, showList);
+			});
+		});
+	</sec:authorize>
 </script>

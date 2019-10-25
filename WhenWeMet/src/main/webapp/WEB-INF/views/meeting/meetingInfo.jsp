@@ -12,8 +12,8 @@
 		<%@ include file="/WEB-INF/views/includes/03_header.jsp"%>
 
 		<center>
-			<h1>${meeting.mname }</h1>
-			<h2>by ${meeting.creator }</h2>
+			<h1>모임 이름 : <b>${meeting.mname }</b></h1>
+			<h2>모임장 : <b>${meeting.creator }</b></h2>
 			<form method="post" action="/schedule/index">
 				<input type="hidden" name="mid" value="${meeting.mid }">
 				 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
@@ -28,14 +28,14 @@
 			<h3>참여자 목록 </h3>
 			<div class="panel panel-default" id="usrList"></div>
 		</div>
+		
 		<div class="container">
-			<h3>가능한 시간 목록</h3>
 			<form method="post" action="/schedule/table">
 				<input type="hidden" name="mid" value="${meeting.mid }">
 				<input type="hidden" name="allSchedule" value="${allSchedule}">
 				<button type="submit" class="btn btn-success pull-right">표로 확인하기</button>
 			</form>
-			
+			<h3>가능한 시간 목록</h3>
 			<div class="panel panel-default" id="timeList">
 				
 			</div>
