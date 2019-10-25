@@ -12,7 +12,7 @@
 
 	<div class="signup-box">
 		<div class="signup-logo">
-			<b>When</b>We<b>Met</b>
+			<a href="/"><b>When</b>We<b>Met</b></a>
 		</div>
 
 		<div class="signup-box-body">
@@ -40,11 +40,11 @@
 					</label>
 				</div>
 				<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}" />
+				<div class="dropdown-divider pull-right"></div>
+			<a class="dropdown-item pull-right" href="/user/signup/step1">회원가입하기</a>
 				<button type="submit" class="btn btn-primary">로그인</button>
 			</form>
-			<div class="dropdown-divider"></div>
-			<a class="dropdown-item" href="/user/signup/step1">회원가입하기</a> <a
-				class="dropdown-item" href="/user/findPW">비밀번호 찾기</a>
+			
 		</div>
 
 	</div>

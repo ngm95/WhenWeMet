@@ -10,7 +10,7 @@
 
     <div class="signup-box">
         <div class="signup-logo">
-            <a href="#"><b>When</b>We<b>Met</b></a>
+            <a href="/"><b>When</b>We<b>Met</b></a>
         </div>
 
         <div class="signup-box-body">

@@ -26,8 +26,9 @@
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 		</form>
 	</div>
+	<%@ include file="/WEB-INF/views/includes/09_footer.jsp"%>
 </body>
-<%@ include file="/WEB-INF/views/includes/09_footer.jsp"%>
+
 <script type="text/javascript">
 	$(document).ready(function(){
 		$(document).on("click",'.meeting',function(){

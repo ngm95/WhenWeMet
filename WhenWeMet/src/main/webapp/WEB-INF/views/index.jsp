@@ -23,6 +23,6 @@
 			5. 지금 시작하세요!</p>
 		</div>
 	</div>
+	<%@ include file="/WEB-INF/views/includes/09_footer.jsp"%>
 </body>
-<%@ include file="/WEB-INF/views/includes/09_footer.jsp"%>
 </html>
