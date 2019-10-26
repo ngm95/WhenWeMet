@@ -11,7 +11,7 @@
 
     <div class="signup-box">
         <div class="signup-logo">
-            <a href="/"><b>When</b>We<b>Met</b></a>
+            <a href="/"><b>우리</b>언제<b>만날까?</b></a>
         </div>
 
         <div class="signup-box-body">

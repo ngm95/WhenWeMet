@@ -81,7 +81,7 @@
 		</div>
 	</div>
 	<input type="hidden" id="mid" value="${meeting.mid }">
-	<input type="hidden" id="userId" value="${authInfo.id }">
+	<input type="hidden" id="userId" value="<%=uid%>">
 	 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 </body>
 <%@ include file="/WEB-INF/views/includes/09_footer.jsp"%>

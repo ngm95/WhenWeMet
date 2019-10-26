@@ -63,9 +63,7 @@
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	</sec:authorize>
 </div>
-<sec:authorize access="isAuthenticated()">
-	<script src="/resources/js/invitation.js"></script>
-</sec:authorize>
+<script src="/resources/js/invitation.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#meetingList").on("click", function(e) {
@@ -96,12 +94,12 @@
 			});
 			return mname;
 		}
-		function showList(list) {
-			var list = list;
+		function showList(mlist) {
+			var mlist = mlist;
 			var str = "";
-			var len = list.length;
+			var len = mlist.length;
 			for(var i = 0; i < len; i++) {
-				var data = list[i];
+				var data = mlist[i];
 				var meetingName = getMeetingName(data.mid);
 				str += "<li id='"+ data.sender +"'>" + data.sender + " 님이 "+ meetingName + " 모임으로 초대하였습니다.";
 				str += "<a class='accept' href='"+data.mid+"'> 수락</a> <a class='deny' href='"+data.mid+"'>거절</a>"
@@ -111,7 +109,7 @@
 		}
 		$(document).ready(function(){
 			var getInvitation = $("#getInvitation");
-			ajaxManager.get(userId, showList);
+			
 			getInvitation.on("click", function(){
 				ajaxManager.get(userId, showList);
 			});

@@ -10,7 +10,7 @@
 <body class="main-pages" style="height: 100%">
 	<div class="container">
 		<%@ include file="/WEB-INF/views/includes/03_header.jsp"%>
-
+		<div class="jumbotron" style="text-align: left;">
 		<center>
 			<h1>모임 이름 : <b>${meeting.mname }</b></h1>
 			<h2>모임장 : <b>${meeting.creator }</b></h2>
@@ -22,13 +22,15 @@
 			<br>
 			<button class="btn btn-info" data-toggle="modal" data-target="#inviteModal">초대 하기</button>
 		</center>
-		<br>
+		</div>
 		<hr>
+		<div class="jumbotron" style="text-align: left;">
 		<div class="container">
-			<h3>참여자 목록 </h3>
+			<h3>참여자 목록 (클릭해 선택한 시간 확인 가능) </h3>
 			<div class="panel panel-default" id="usrList"></div>
 		</div>
-		
+		</div>
+		<div class="jumbotron" style="text-align: left;">
 		<div class="container">
 			<form method="post" action="/schedule/table">
 				<input type="hidden" name="mid" value="${meeting.mid }">
@@ -39,6 +41,7 @@
 			<div class="panel panel-default" id="timeList">
 				
 			</div>
+		</div>
 		</div>
 	</div>
 	
@@ -98,7 +101,8 @@
 		var len = userList.length;
 		for (var i = 0; i < len; i++) {
 			var user = userList[i];
-			str += "<div class='panel-body userInfo' id='"+user+"' data-toggle='modal' data-target='#timeModal'>" + user + "</div>";		
+			str += "<div class='panel-body userInfo' id='"+user+"' data-toggle='modal' data-target='#timeModal'>" + user + "</div>";
+			
 		}
 		$("#usrList").html(str);
 	}

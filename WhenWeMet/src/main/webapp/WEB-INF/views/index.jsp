@@ -10,10 +10,11 @@
 	<div class="container" style="height: 100%">
 		<%@ include file="/WEB-INF/views/includes/03_header.jsp"%>
 		<div class="jumbotron">
-			<h1>우리 언제 만날까?</h1>
+			<h1><b>우리</b> 언제 <b>만날까?</b></h1>
+			<h2>일정 관리 사이트</h2>
 			<p class="lead">일정을 생성하고 팀원들과 맞는 시간을 찾아보세요!</p>
 		</div>
-		<div class="jumbotron">
+		<div class="jumbotron" style="text-align: left;">
 			<h2>사용 방법</h2>
 			<p class="lead">
 			1. 회원가입 후 로그인하세요.<br>
