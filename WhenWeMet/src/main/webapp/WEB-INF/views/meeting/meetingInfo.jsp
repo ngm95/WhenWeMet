@@ -11,41 +11,49 @@
 	<div class="container">
 		<%@ include file="/WEB-INF/views/includes/03_header.jsp"%>
 		<div class="jumbotron" style="text-align: left;">
-		<center>
-			<h1>모임 이름 : <b>${meeting.mname }</b></h1>
-			<h2>모임장 : <b>${meeting.creator }</b></h2>
-			<form method="post" action="/schedule/index">
-				<input type="hidden" name="mid" value="${meeting.mid }">
-				 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-				<button type="submit" class="btn btn-success">일정 등록</button>
-			</form>
-			<br>
-			<button class="btn btn-info" data-toggle="modal" data-target="#inviteModal">초대 하기</button>
-		</center>
+			<center>
+				<h1>
+					모임 이름 : <b>${meeting.mname }</b>
+				</h1>
+				<h2>
+					모임장 : <b>${meeting.creator }</b>
+				</h2>
+				<form method="post" action="/schedule/index">
+					<input type="hidden" name="mid" value="${meeting.mid }"> <input
+						type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+					<button type="submit" class="btn btn-success">일정 등록</button>
+				</form>
+				<br>
+				<button class="btn btn-info" data-toggle="modal"
+					data-target="#inviteModal">초대 하기</button>
+			</center>
 		</div>
 		<hr>
-		<div class="jumbotron" style="text-align: left;">
+
 		<div class="container">
-			<h3>참여자 목록 (클릭해 선택한 시간 확인 가능) </h3>
-			<div class="panel panel-default" id="usrList"></div>
-		</div>
-		</div>
-		<div class="jumbotron" style="text-align: left;">
-		<div class="container">
-			<form method="post" action="/schedule/table">
-				<input type="hidden" name="mid" value="${meeting.mid }">
-				<input type="hidden" name="allSchedule" value="${allSchedule}">
-				<button type="submit" class="btn btn-success pull-right">표로 확인하기</button>
-			</form>
-			<h3>가능한 시간 목록</h3>
-			<div class="panel panel-default" id="timeList">
-				
+			<h3>참여자 목록 (클릭해 선택한 시간 확인 가능)</h3>
+			<div class="jumbotron" style="text-align: left;">
+				<div class="panel panel-default" id="usrList"></div>
 			</div>
 		</div>
+
+		<div class="container">
+			<div>
+				<form method="post" action="/schedule/table">
+					<input type="hidden" name="mid" value="${meeting.mid }"> <input
+						type="hidden" name="allSchedule" value="${allSchedule}">
+					<button type="submit" class="btn btn-success pull-right">표로
+						확인하기</button>
+				</form>
+				<h3>가능한 시간 목록</h3>
+			</div>
+			<div class="jumbotron" style="text-align: left;">
+				<div class="panel panel-default" id="timeList"></div>
+			</div>
 		</div>
 	</div>
-	
-	
+
+
 	<div class="modal fade" id="inviteModal" role="dialog">
 		<div class="modal-dialog">
 			<div class="modal-content">

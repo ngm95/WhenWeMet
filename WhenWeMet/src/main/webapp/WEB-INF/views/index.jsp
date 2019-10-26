@@ -12,6 +12,7 @@
 		<div class="jumbotron">
 			<h1><b>우리</b> 언제 <b>만날까?</b></h1>
 			<h2>일정 관리 사이트</h2>
+			<br>
 			<p class="lead">일정을 생성하고 팀원들과 맞는 시간을 찾아보세요!</p>
 		</div>
 		<div class="jumbotron" style="text-align: left;">

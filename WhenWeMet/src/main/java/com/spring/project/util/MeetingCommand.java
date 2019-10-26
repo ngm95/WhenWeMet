@@ -10,7 +10,6 @@ public class MeetingCommand {
 	
 	@NotEmpty(message="모임 이름을 입력해주세요.")
 	@Column
-	@Pattern(regexp="\\S{1,20}", message="1~20자로 입력해주세요.")
 	private String mname;
 	private String creator;
 	

@@ -16,11 +16,11 @@ public class RegisterRequest {
 	
 	@Column
 	@NotEmpty(message="이메일을 입력해주세요.")
-	@Email(message="이메일 형식이 아닙니다.")
+	@Email(message="올바른 이메일 형식이 아닙니다.")
     private String email;
 	
 	@Column
-	@Pattern(regexp="\\S{2,8}", message="이르믕ㄹ 2~8자로 입력해주세요.")
+	@Pattern(regexp="\\S{2,8}", message="이름을 2~8자로 입력해주세요.")
     private String name;
 	
 	@Column
@@ -31,7 +31,7 @@ public class RegisterRequest {
 	@Size(min=4, max=12, message="비밀번호를 4~12자로 입력해주세요.")
     private String checkPassword;
     
-    //��й�ȣ Ȯ��
+    //占쏙옙橘占싫� 확占쏙옙
     public boolean isPwEqualToCheckPw() {
         return password.equals(checkPassword);
     }

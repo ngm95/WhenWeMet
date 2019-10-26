@@ -11,8 +11,9 @@
 		<div class="jumbotron">
 			<div class="signup-box">
 				<div class="signup-logo">
-					<b>새로운 일정 만들기</b>
+					<b>새로운 모임 만들기</b>
 				</div>
+				<br><br>
 				<sec:authentication property="principal" var="userid" />
 				<div>
 					<form:form role="form" modelAttribute="meetingCommand"

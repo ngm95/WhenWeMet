@@ -16,14 +16,14 @@
 	<div class="container" style="height: 100%">
 		<%@ include file="/WEB-INF/views/includes/03_header.jsp"%>
 		<div class="container">
-			<h2>${meeting.mname } 모임에 참석 가능한 자신의 시간을 알려주세요.</h2>
-			<p>
-				현재 등록한 일정
-				<button class="btn btn-sm btn-info pull-right" data-toggle="modal" data-target="#scheduleModal">일정 추가하기</button>
-			</p>
-			<br>
+			<div>
+			<button class="btn btn-sm btn-info pull-right" data-toggle="modal" data-target="#scheduleModal">일정 추가하기</button>
+			<h3>내가 등록한 일정</h3>
+			</div>
+			<div class="jumbotron" style="text-align: left;">
 			<div class="panel-group scheduleList">
 				
+			</div>
 			</div>
 		</div>
 		<!-- Modal -->

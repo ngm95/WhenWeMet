@@ -102,7 +102,7 @@
 				var data = mlist[i];
 				var meetingName = getMeetingName(data.mid);
 				str += "<li id='"+ data.sender +"'>" + data.sender + " 님이 "+ meetingName + " 모임으로 초대하였습니다.";
-				str += "<a class='accept' href='"+data.mid+"'> 수락</a> <a class='deny' href='"+data.mid+"'>거절</a>"
+				str += "<div class=\"pull-right\"><a class='accept' href='"+data.mid+"'> 수락</a><span> | </span><a class='deny' href='"+data.mid+"'>거절</a></div>"
 				str += "</li>";
 			}
 			$("#senderList").html(str);
