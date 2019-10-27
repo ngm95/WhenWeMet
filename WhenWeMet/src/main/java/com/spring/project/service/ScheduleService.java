@@ -94,9 +94,7 @@ public class ScheduleService {
 		Set<String> keySet = map.keySet();
 		TimeArray[] tArray;
 		tArray = new TimeArray[keySet.size()];
-		int idx = 0;
-		long min = Long.MAX_VALUE;
-		long max = Long.MIN_VALUE;
+		int idx = 0; long min = Long.MAX_VALUE; long max = Long.MIN_VALUE;
 		for(String key : keySet) {
 			List<ScheduleDTO> temp = map.get(key);
 			Collections.sort(temp);

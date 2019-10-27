@@ -18,9 +18,12 @@ arr = list.toArray(new CalendarDTO[list.size()]);
 <body class="main-pages">
 	<div class="container" style="height: 100%">
 		<%@ include file="/WEB-INF/views/includes/03_header.jsp"%>
-		
+		<div id="mname">
+			<center>
+				<h1>${mname}</h1>
+			</center>
+		</div>
 		<div id='calendar'></div>
-		<div id="test"></div>
 	</div>
 	
 	<input type="hidden" id="mid" value="${meeting.mid }">
@@ -40,14 +43,16 @@ var json = String($('#JSONSchedule').val());
 var titleArray = new Array();
 var startArray = new Array();
 var endArray = new Array();
+var colorArray = new Array();
 <c:forEach items="${JSONSchedule}" var="item">
 	titleArray.push("${item.title}");
 	startArray.push("${item.start}");
 	endArray.push("${item.end}");
+	colorArray.push("${item.color}")
 </c:forEach>
 
 document.addEventListener('DOMContentLoaded', function() {
-	
+	var today = new Date();
     var calendarEl = document.getElementById('calendar');
 
     var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -57,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function() {
         center: 'title',
         right: 'dayGridMonth,timeGridWeek'
       },
-      defaultDate: '2019-10-21',
+      defaultDate: today,
       navLinks: true, // can click day/week names to navigate views
       selectable: false,
       selectMirror: true,
@@ -79,11 +84,13 @@ document.addEventListener('DOMContentLoaded', function() {
     	 
       ]
     });
+    
  	for (var i = 0; i < titleArray.length; i++) {
  		var title = titleArray[i];
  		var startDate = startArray[i];
  		var endDate = endArray[i];
- 		calendar.addEvent({'title':title, 'start':startDate, 'end':endDate});
+ 		var color = colorArray[i];
+ 		calendar.addEvent({'title':title, 'start':startDate, 'end':endDate, 'backgroundColor':color});
  	}
     
     

@@ -63,11 +63,12 @@ public class ScheduleController {
 	}
 	
 	@RequestMapping("/table")
-	public ModelAndView scheduleTable(HttpSession session, @RequestParam(value="mid") int mid) {
+	public ModelAndView scheduleTable(HttpSession session, @RequestParam(value="mid") int mid, @RequestParam(value="mname") String mname) {
 		ModelAndView mv = new ModelAndView("/schedule/table");
 		if (session.getAttribute("JSONSchedule") != null)
 			session.removeAttribute("JSONSchedule");
 		session.setAttribute("JSONSchedule", svc.getAllJSONSchedule(mid));
+		session.setAttribute("mname", mname);
 		return mv;
 	}
 }

@@ -10,7 +10,6 @@
 <body class="main-pages" style="height: 100%">
 	<div class="container">
 		<%@ include file="/WEB-INF/views/includes/03_header.jsp"%>
-		<div class="jumbotron" style="text-align: left;">
 			<center>
 				<h1>
 					모임 이름 : <b>${meeting.mname }</b>
@@ -27,7 +26,6 @@
 				<button class="btn btn-info" data-toggle="modal"
 					data-target="#inviteModal">초대 하기</button>
 			</center>
-		</div>
 		<hr>
 
 		<div class="container">
@@ -40,10 +38,10 @@
 		<div class="container">
 			<div>
 				<form method="post" action="/schedule/table">
-					<input type="hidden" name="mid" value="${meeting.mid }"> <input
-						type="hidden" name="allSchedule" value="${allSchedule}">
-					<button type="submit" class="btn btn-success pull-right">표로
-						확인하기</button>
+					<input type="hidden" name="mid" value="${meeting.mid }"> 
+					<input type="hidden" name="mname" value="${meeting.mname }">
+					<input type="hidden" name="allSchedule" value="${allSchedule}">
+					<button type="submit" class="btn btn-success pull-right">표로 확인하기</button>
 				</form>
 				<h3>가능한 시간 목록</h3>
 			</div>

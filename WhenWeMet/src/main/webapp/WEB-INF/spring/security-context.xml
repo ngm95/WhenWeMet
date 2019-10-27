@@ -14,11 +14,9 @@
 		<security:intercept-url access="hasAnyRole('ROLE_USER','ROLE_ADMIN')" pattern="/invitation/**"/>
 		<security:intercept-url access="hasAnyRole('ROLE_USER','ROLE_ADMIN')" pattern="/member/**"/>
 		<security:intercept-url access="hasAnyRole('ROLE_USER','ROLE_ADMIN')" pattern="/schedule/**"/>
-		<security:intercept-url access="hasAnyRole('ROLE_USER','ROLE_ADMIN')" pattern="/user/find**"/>
 		<security:intercept-url access="hasAnyRole('ROLE_USER','ROLE_ADMIN')" pattern="/meeting/**"/>
 		<security:intercept-url access="permitAll" pattern="/user/**"/>
 		<security:intercept-url access="permitAll" pattern="/**"/>
-		
 		<security:form-login 
 			username-parameter="loginID"
 			password-parameter="loginPW"
@@ -27,13 +25,11 @@
 			default-target-url="/"
 			authentication-failure-handler-ref="loginFailureHandler"
 			authentication-success-handler-ref="loginSuccessHandler" />
-
 		<security:access-denied-handler
 			error-page="/access_denied_page" />
-
-		<security:logout delete-cookies="true" logout-success-url="/" logout-url="/user/logout" invalidate-session="true"/>
+		<security:logout 
+			delete-cookies="true" logout-success-url="/" logout-url="/user/logout" invalidate-session="true"/>
 		<security:csrf disabled="true"/>
-
 	</security:http>
 
 	<security:authentication-manager>
