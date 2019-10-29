@@ -94,15 +94,15 @@
 			});
 			return mname;
 		}
-		function showList(mlist) {
-			var mlist = mlist;
+		function showList(list) {
+			var list = list;
 			var str = "";
-			var len = mlist.length;
+			var len = list.length;
 			for(var i = 0; i < len; i++) {
-				var data = mlist[i];
+				var data = list[i];
 				var meetingName = getMeetingName(data.mid);
 				str += "<li id='"+ data.sender +"'>" + data.sender + " 님이 "+ meetingName + " 모임으로 초대하였습니다.";
-				str += "<div class=\"pull-right\"><a class='accept' href='"+data.mid+"'> 수락</a><span> | </span><a class='deny' href='"+data.mid+"'>거절</a></div>"
+				str += "<a class='accept' href='"+data.mid+"'> 수락</a> <a class='deny' href='"+data.mid+"'>거절</a>"
 				str += "</li>";
 			}
 			$("#senderList").html(str);

@@ -44,7 +44,10 @@ public class ScheduleService {
 		return mapper.selectByManyUser(userList, mid);
 	}
 	
-	public List<CalendarDTO> getAllJSONSchedule(int mid) {
+	/** 
+	 * 해당 모임의 모든 일정을 CalendarDTO의 리스트로 반환한다.
+	 */
+	public List<CalendarDTO> getAllSchedule(int mid) {
 		List<ScheduleDTO> list = mapper.selectAll(mid);
 		List<CalendarDTO> result = new LinkedList<>();
 		

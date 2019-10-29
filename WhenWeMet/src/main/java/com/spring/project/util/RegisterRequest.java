@@ -11,7 +11,7 @@ import javax.validation.constraints.Size;
 public class RegisterRequest {
 
 	@Column
-	@Pattern(regexp="\\w{4,8}", message="아이디를 4~8자로 입력해주세요.")
+	@Pattern(regexp="\\w{3,8}", message="아이디를 3~8자로 입력해주세요.")
     private String id;
 	
 	@Column

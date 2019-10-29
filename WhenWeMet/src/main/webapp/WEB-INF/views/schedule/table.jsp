@@ -10,11 +10,6 @@
 <head>
 <%@ include file="/WEB-INF/views/includes/00_head.jsp"%>
 </head>
-<%
-LinkedList<CalendarDTO> list = (LinkedList<CalendarDTO>)session.getAttribute("JSONSchedule"); 
-CalendarDTO arr[] = new CalendarDTO[list.size()];
-arr = list.toArray(new CalendarDTO[list.size()]);
-%>
 <body class="main-pages">
 	<div class="container" style="height: 100%">
 		<%@ include file="/WEB-INF/views/includes/03_header.jsp"%>
@@ -27,7 +22,7 @@ arr = list.toArray(new CalendarDTO[list.size()]);
 	</div>
 	
 	<input type="hidden" id="mid" value="${meeting.mid }">
-	<input type="hidden" id="JSONSchedule" value="${JSONSchedule }">
+	<input type="hidden" id="scheduleList" value="${scheduleList }">
 </body>
 <%@ include file="/WEB-INF/views/includes/09_footer.jsp"%>
 <link href='${pageContext.request.contextPath }/resources/fullcalendar/core/main.css' rel='stylesheet' />
@@ -39,12 +34,11 @@ arr = list.toArray(new CalendarDTO[list.size()]);
 <script src='/resources/fullcalendar/timegrid/main.js'></script>
 <script src='/resources/moment/min/moment.min.js'></script>
 <script>
-var json = String($('#JSONSchedule').val());
 var titleArray = new Array();
 var startArray = new Array();
 var endArray = new Array();
 var colorArray = new Array();
-<c:forEach items="${JSONSchedule}" var="item">
+<c:forEach items="${scheduleList}" var="item">
 	titleArray.push("${item.title}");
 	startArray.push("${item.start}");
 	endArray.push("${item.end}");
@@ -52,39 +46,28 @@ var colorArray = new Array();
 </c:forEach>
 
 document.addEventListener('DOMContentLoaded', function() {
-	var today = new Date();
+	var today = new Date();		// 오늘에 해당하는 Date 객체
     var calendarEl = document.getElementById('calendar');
 
     var calendar = new FullCalendar.Calendar(calendarEl, {
-      plugins: ['dayGrid', 'timeGrid' ],
+      plugins: ['dayGrid', 'timeGrid', 'interaction' ],
       header: {
         left: 'prev,next today',
         center: 'title',
-        right: 'dayGridMonth,timeGridWeek'
+        right: 'dayGridMonth,timeGridWeek,timeGridDay'
       },
       defaultDate: today,
-      navLinks: true, // can click day/week names to navigate views
+      navLinks: true,
       selectable: false,
       selectMirror: true,
-      select: function(arg) {
-        var title = prompt('Event Title:');
-        if (title) {
-          calendar.addEvent({
-            title: title,
-            start: arg.start,
-            end: arg.end,
-            allDay: arg.allDay
-          })
-        }
-        calendar.unselect()
-      },
       editable: false,
-      eventLimit: true, // allow "more" link when too many events
+      eventLimit: true,
       event:[
     	 
       ]
     });
     
+    // 받아온 일정을 모두 추가
  	for (var i = 0; i < titleArray.length; i++) {
  		var title = titleArray[i];
  		var startDate = startArray[i];
