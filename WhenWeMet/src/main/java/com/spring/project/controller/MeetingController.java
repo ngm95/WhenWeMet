@@ -24,11 +24,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.project.dto.MeetingDTO;
 import com.spring.project.dto.PartyDTO;
-import com.spring.project.exception.AlreadyExistingIdException;
+import com.spring.project.exception.AlreadyExistingMnameException;
 import com.spring.project.service.MeetingService;
 import com.spring.project.service.PartyService;
 import com.spring.project.util.MeetingCommand;
-import com.spring.project.util.MeetingRequest;
 
 @Controller
 @RequestMapping("/meeting")
@@ -69,17 +68,14 @@ public class MeetingController {
 			mv.setViewName("/meeting/makeForm");
 			return mv;
 		}
-		
-		MeetingRequest meRe = new MeetingRequest(meetingCommand.getMname(), meetingCommand.getCreator());
-		
 		try {
-			meetingSer.create(meRe);
+			meetingSer.create(meetingCommand);
 			PartyDTO partyDTO = new PartyDTO();
 			int pid = meetingSer.readByName(meetingCommand.getMname()).getMid();
 			partyDTO.setPid(pid);
 			partyDTO.setUid(meetingCommand.getCreator());
 			psvc.create(partyDTO);
-		} catch(AlreadyExistingIdException e) {
+		} catch(AlreadyExistingMnameException e) {
 			bindingResult.rejectValue("mname", "duplicate", "중복되는 이름입니다.");
 			mv.setViewName("/meeting/makeForm");
 			return mv;

@@ -28,7 +28,7 @@ public class SignUpController {
 	 * /user/signup/step1.jsp와 매핑한다.
 	 * @return /user/signup/step1.jsp로 매핑되는 ModelAndView
 	 */
-	@RequestMapping(value="signup/step1")
+	@RequestMapping(value="/signup/step1")
 	public String step1() throws Exception {
 		return "/user/signup/step1";
 	}
@@ -40,7 +40,7 @@ public class SignUpController {
 	 * @param agree
 	 * @return /user/signup/step2.jsp로 매핑되는 ModelAndView
 	 */
-	@RequestMapping(value="signup/step2", method=RequestMethod.GET)
+	@RequestMapping(value="/signup/step2", method=RequestMethod.GET)
 	public ModelAndView step2(@RequestParam(value="agree", defaultValue="false") Boolean agree) throws Exception {
 		ModelAndView mv = new ModelAndView();
 		if(!agree) {
@@ -61,7 +61,7 @@ public class SignUpController {
 	 * @param bindingResult RegisterRequest가 유효한지 검사
 	 * @return '/'로 리다이렉트
 	 */
-    @RequestMapping(value="signup/step3", method=RequestMethod.POST)
+    @RequestMapping(value="/signup/step3", method=RequestMethod.POST)
     public ModelAndView step3(@Valid RegisterRequest regReq, BindingResult bindingResult) throws Exception{
     	
         ModelAndView mv = new ModelAndView();

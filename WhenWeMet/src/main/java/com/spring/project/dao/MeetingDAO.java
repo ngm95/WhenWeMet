@@ -8,7 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.spring.project.dto.MeetingDTO;
-import com.spring.project.util.MeetingRequest;
+import com.spring.project.util.MeetingCommand;
 
 @Repository
 public class MeetingDAO{
@@ -30,8 +30,8 @@ public class MeetingDAO{
 	 * @param meRe 데이터베이스에 넣을 정보
 	 * @param userId 
 	 */
-	public void create(MeetingRequest meRe){
-		sqlSession.insert(NAMESPACE + ".create", meRe);
+	public void create(MeetingCommand meCo){
+		sqlSession.insert(NAMESPACE + ".create", meCo);
 	}
 	
 	/**

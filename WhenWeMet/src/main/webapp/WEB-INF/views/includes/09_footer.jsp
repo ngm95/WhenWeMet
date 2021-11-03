@@ -1,3 +1,3 @@
         <footer class="footer">
-            <p>© Computer and Communication Engineering, Kangwon University, 2019</p>
+            <p align="center">© W.O.N, 2020</p>
         </footer>

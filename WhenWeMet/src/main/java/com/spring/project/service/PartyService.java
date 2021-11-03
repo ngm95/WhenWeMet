@@ -42,4 +42,5 @@ public class PartyService {
 	public List<String> listByPid(int pid) {
 		return partyDao.listByPid(pid);
 	}
+
 }
